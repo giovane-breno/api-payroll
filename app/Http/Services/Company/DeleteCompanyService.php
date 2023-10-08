@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Services\User;
+namespace App\Http\Services\Company;
 
 use App\Enums\MessageEnum;
 use App\Http\Resources\User\UserResource;
+use App\Models\Company;
 use App\Models\User;
 use Exception;
 
-class DeleteUserService
+class DeleteCompanyService
 {
-    public function deleteUser(int $id)
+    public function deleteCompany(int $id)
     {
         $message = MessageEnum::SUCCESS_DELETED;
         try {
-            $user = User::findOrFail($id);
-            $user->delete();
+            $query = Company::findOrFail($id);
+            $query->delete();
 
             return ['message' => $message];
         } catch (Exception $th) {

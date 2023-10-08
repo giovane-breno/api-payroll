@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\User\CreateUserService;
+use App\Http\Services\User\DeleteUserService;
 use App\Http\Services\User\FindUserService;
 use App\Http\Services\User\ListActiveUsersService;
 use App\Http\Services\User\UpdateUserService;
@@ -51,6 +52,9 @@ class UserController extends Controller
             'pis' => 'required',
             'company_id' => 'required',
             'role_id' => 'required',
+
+            'address' => 'required',
+            'phones' => 'required',
         ]);
 
         try {
@@ -60,7 +64,10 @@ class UserController extends Controller
                 $request->ctps,
                 $request->pis,
                 $request->company_id,
-                $request->role_id
+                $request->role_id,
+
+                $request->address,
+                $request->phones,
             );
 
             $response = $service->createUser();
@@ -107,7 +114,10 @@ class UserController extends Controller
     public function deleteUser(int $id)
     {
         try {
-            //code...
+            $service = new DeleteUserService();
+            $response = $service->deleteUser($id);
+
+            return response()->json(['status' => 'success', 'data' => $response], 204);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
