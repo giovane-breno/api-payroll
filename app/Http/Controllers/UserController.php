@@ -102,7 +102,7 @@ class UserController extends Controller
             );
 
             $response = $service->updateUser($id);
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
@@ -117,7 +117,7 @@ class UserController extends Controller
             $service = new DeleteUserService();
             $response = $service->deleteUser($id);
 
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }

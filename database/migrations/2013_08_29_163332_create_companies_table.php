@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('company', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->string("corporate_name"); //razao social
@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        DB::table('company')->insert(
+        DB::table('companies')->insert(
             array(
                 [
                     'name' => 'Empresa Fictícia',

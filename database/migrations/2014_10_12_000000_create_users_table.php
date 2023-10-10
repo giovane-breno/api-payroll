@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,6 +19,7 @@ return new class extends Migration
             $table->string('CPF')->unique();
             $table->string('CTPS')->unique();
             $table->string('PIS')->unique();
+            $table->time('journey');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('role_id'); // Cargo Ex. Analista de T.I
             $table->unsignedBigInteger('division_id'); // Divisao Ex. Setor de Informática
@@ -28,8 +28,8 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::table('users', function($table) {
-            $table->foreign('company_id')->references('id')->on('company');
+        Schema::table('users', function ($table) {
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('division_id')->references('id')->on('divisions');
         });
@@ -40,10 +40,12 @@ return new class extends Migration
                     'full_name' => "Administrator",
                     'email' => "admin@admin.com",
                     'username' => "admin",
-                    'password' => "admin", // alterar para o hash
+                    'password' => "admin",
+                    // alterar para o hash
                     'CPF' => "123.456.789-10",
                     'CTPS' => "1234567-8910",
                     'PIS' => "123.45678.91-0",
+                    'journey' => '06:00',
                     'company_id' => 1,
                     'role_id' => 1,
                     'division_id' => 1,
@@ -52,11 +54,11 @@ return new class extends Migration
                 ],
             )
         );
-        
-        
+
+
     }
 
-   
+
 
     /**
      * Reverse the migrations.

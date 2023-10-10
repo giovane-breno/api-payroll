@@ -11,22 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('vacations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("user_id");
-            $table->string("full_name");
-            $table->string("role");
-            $table->decimal("base_salary");
             $table->decimal("bonus");
-            $table->decimal("benefits");
-            $table->decimal("vacation");
-            $table->decimal("discounts");
-            $table->decimal("gross_salary");
-            $table->decimal("net_salary");
+            $table->dateTime("start_date");
+            $table->dateTime("end_date");
             $table->timestamps();
         });
 
-        Schema::table('payments', function ($table) {
+        Schema::table('vacations', function ($table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -36,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('vacations');
     }
 };

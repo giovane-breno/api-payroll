@@ -80,7 +80,7 @@ class DivisionController extends Controller
             );
 
             $response = $service->updateDivision($id);
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 201);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
@@ -95,7 +95,7 @@ class DivisionController extends Controller
             $service = new DeleteDivisionService();
             $response = $service->deleteDivision($id);
 
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }

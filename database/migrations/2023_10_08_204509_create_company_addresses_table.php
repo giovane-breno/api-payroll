@@ -24,8 +24,24 @@ return new class extends Migration
         });
 
         Schema::table('company_addresses', function($table) {
-            $table->foreign('user_id')->references('id')->on('company');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
+
+        DB::table('company_addresses')->insert(
+            array(
+                [
+                    'company_id' => '1',
+                    'CEP' => '12231-049',
+                    'street' => 'Rua das Dores',
+                    'district' => 'Jardim Paulista',
+                    'house_number' => '811',
+                    'complement' => 'Prédio Comercial',
+                    'references' => 'Próximo ao Mercado Ipê',
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+            )
+        );
     }
 
     /**

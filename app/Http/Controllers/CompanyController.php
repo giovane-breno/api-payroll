@@ -61,7 +61,7 @@ class CompanyController extends Controller
                 $request->town_registration,
                 $request->state_registration,
 
-                $request->phone
+                $request->address
             );
 
             $response = $service->createCompany();
@@ -92,11 +92,11 @@ class CompanyController extends Controller
                 $request->town_registration,
                 $request->state_registration,
 
-                // $request->phone
+                $request->address,
             );
 
             $response = $service->updateCompany($id);
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
@@ -111,7 +111,7 @@ class CompanyController extends Controller
             $service = new DeleteCompanyService();
             $response = $service->deleteCompany($id);
 
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }

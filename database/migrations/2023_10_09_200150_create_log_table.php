@@ -11,17 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vacation', function (Blueprint $table) {
+        Schema::create('log', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
-            $table->decimal("bonus");
-            $table->dateTime("start_date");
-            $table->dateTime("end_date");
             $table->timestamps();
-        });
-
-        Schema::table('vacation', function ($table) {
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vacation');
+        Schema::dropIfExists('log');
     }
 };

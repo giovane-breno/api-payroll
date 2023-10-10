@@ -80,7 +80,7 @@ class RoleController extends Controller
             );
 
             $response = $service->updateRole($id);
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
@@ -95,7 +95,7 @@ class RoleController extends Controller
             $service = new DeleteRoleService();
             $response = $service->deleteRole($id);
 
-            return response()->json(['status' => 'success', 'data' => $response], 204);
+            return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
