@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Division;
+namespace App\Http\Services\Role;
 
 use App\Enums\MessageEnum;
 use App\Http\Resources\Role\RoleCollection;

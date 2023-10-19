@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function ListAdmins()
+    public function listAdmins()
     {
         try {
             $service = new ListActiveAdminsService();
@@ -22,7 +22,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Mostra uma Divisão em especifico.
+     * Mostra um administrador específico.
      */
     public function findAdmin(int $id)
     {
@@ -36,7 +36,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Cadastra os novas Divisões no sistema.
+     * Cadastra novos administradores no sistema.
      */
     public function promoteAdmin(Request $request)
     {
@@ -59,7 +59,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Deleta uma Divisão do sistema.
+     * Remove a função de administrador de um usuário.
      */
     public function demoteAdmin(int $id)
     {
@@ -72,6 +72,4 @@ class AdminController extends Controller
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
     }
-
-
 }

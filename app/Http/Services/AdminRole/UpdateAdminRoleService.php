@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Benefit;
+namespace App\Http\Services\AdminRole;
 
 use App\Enums\MessageEnum;
 use App\Models\AdminRole;

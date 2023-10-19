@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\AdminRoles;
+namespace App\Http\Services\AdminRole;
 
 use App\Enums\MessageEnum;
 use App\Http\Resources\AdminRole\AdminRoleCollection;
