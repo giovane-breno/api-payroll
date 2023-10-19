@@ -18,7 +18,7 @@ class DivisionCollection extends ResourceCollection
         $pagination = new PaginationResource($this);
 
         return [
-            'divisions' => $this->collection,
+            'info' => $this->collection,
             'paginate' => $pagination,
         ];
     }

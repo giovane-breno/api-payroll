@@ -18,7 +18,7 @@ class UserCollection extends ResourceCollection
         $pagination = new PaginationResource($this);
 
         return [
-            'users' => $this->collection,
+            'info' => $this->collection,
             'paginate' => $pagination,
         ];
     }

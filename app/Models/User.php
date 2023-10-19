@@ -18,12 +18,14 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
-        'name',
+        'email',
+        'full_name',
         'cpf',
         'ctps',
         'pis',
         'company_id',
-        'role_id'
+        'role_id',
+        'division_id'
     ];
 
     protected $hidden = [
@@ -36,18 +38,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function scopeFilter($query)
-    {
-        if (request('username')) {
-            $query->where('username', 'like', '%' . request('username') . '%');
-        }
-
-        return $query;
-    }
-
     public function Company()
     {
-        return $this->belongsTo(Company::class, 'id')->select([
+        return $this->belongsTo(Company::class, 'company_id')->select([
             'id',
             'name',
             'corporate_name',
@@ -59,7 +52,7 @@ class User extends Authenticatable
 
     public function Role()
     {
-        return $this->belongsTo(Role::class, 'id')->select([
+        return $this->belongsTo(Role::class, 'role_id')->select([
             'id',
             'name',
             'base_salary'
@@ -79,7 +72,7 @@ class User extends Authenticatable
 
     public function Incidents()
     {
-        return $this->hasMany(Incident::class, 'user_id');
+        return $this->hasMany(Incident::class, 'user_id')->where('end_date', '>', Carbon::today());
     }
 
     public function Gratifications()
@@ -89,11 +82,29 @@ class User extends Authenticatable
 
     public function Division()
     {
-        return $this->belongsTo(Division::class, 'id')->select([
+        return $this->belongsTo(Division::class, 'division_id')->select([
             'id',
             'name',
             'bonus'
         ]);
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
+    }
+
+    public function scopeFilter($query)
+    {
+        if (request('username')) {
+            $query->where('username', 'like', '%' . request('username') . '%');
+        }
+
+        if (request('company_id')) {
+            $query->where('company_id', '=', request('company_id'));
+        }
+
+        return $query;
     }
 
     // GRATIFICATIONS

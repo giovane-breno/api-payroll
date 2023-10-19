@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Company;
 
 use App\Http\Resources\PaginationResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -18,7 +18,7 @@ class CompanyCollection extends ResourceCollection
         $pagination = new PaginationResource($this);
 
         return [
-            'companies' => $this->collection,
+            'info' => $this->collection,
             'paginate' => $pagination,
         ];
     }

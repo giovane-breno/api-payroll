@@ -5,7 +5,6 @@ namespace App\Http\Services\Company;
 use App\Enums\MessageEnum;
 use App\Http\Resources\User\UserResource;
 use App\Models\Company;
-use App\Models\User;
 use Exception;
 
 class FindCompanyService

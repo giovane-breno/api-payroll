@@ -65,7 +65,7 @@ class CompanyController extends Controller
             );
 
             $response = $service->createCompany();
-            return response()->json(['status' => 'success', 'data' => $response], 201);
+            return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
@@ -111,7 +111,7 @@ class CompanyController extends Controller
             $service = new DeleteCompanyService();
             $response = $service->deleteCompany($id);
 
-            return response()->json(['status' => 'success', 'data' => $response], 200);
+            return response()->json(['status' => 'success', 'message' => $response['message']], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }

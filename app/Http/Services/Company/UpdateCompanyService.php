@@ -58,7 +58,7 @@ class UpdateCompanyService
         }
     }
 
-    public function saveAddress($id, $address)
+    private function saveAddress($id, $address)
     {
         try {
             $query = CompanyAddress::whereCompanyId($id)->first();

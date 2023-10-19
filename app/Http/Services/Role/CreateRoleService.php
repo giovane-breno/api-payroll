@@ -20,7 +20,7 @@ class CreateRoleService
         $this->base_salary = $base_salary;
     }
 
-    public function createDivision()
+    public function createRole()
     {
         // MessageEnum == MENSAGENS PREDEFINIDAS PARA EVITAR REPETIÇÃO DE CÓDIGO
         $message = MessageEnum::SUCCESS_CREATED;
@@ -34,7 +34,7 @@ class CreateRoleService
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
+            throw new Exception(MessageEnum::FAILURE_CREATED );
         }
     }
 }

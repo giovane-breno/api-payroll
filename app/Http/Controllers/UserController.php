@@ -47,11 +47,13 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'email' => 'required',
             'cpf' => 'required',
             'ctps' => 'required',
             'pis' => 'required',
             'company_id' => 'required',
             'role_id' => 'required',
+            'division_id' => 'required',
 
             'address' => 'required',
             'phones' => 'required',
@@ -60,18 +62,20 @@ class UserController extends Controller
         try {
             $service = new CreateUserService(
                 $request->name,
+                $request->email,
                 $request->cpf,
                 $request->ctps,
                 $request->pis,
                 $request->company_id,
                 $request->role_id,
+                $request->division_id,
 
                 $request->address,
                 $request->phones,
             );
 
             $response = $service->createUser();
-            return response()->json(['status' => 'success', 'data' => $response], 201);
+            return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
@@ -84,21 +88,25 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'string',
+            'email' => 'string',
             'cpf' => 'string',
             'ctps' => 'string',
             'pis' => 'string',
             'company_id' => 'integer',
             'role_id' => 'integer',
+            'division_id' => 'integer',
         ]);
 
         try {
             $service = new UpdateUserService(
                 $request->name,
+                $request->email,
                 $request->cpf,
                 $request->ctps,
                 $request->pis,
                 $request->company_id,
-                $request->role_id
+                $request->role_id,
+                $request->division_id
             );
 
             $response = $service->updateUser($id);
@@ -117,7 +125,7 @@ class UserController extends Controller
             $service = new DeleteUserService();
             $response = $service->deleteUser($id);
 
-            return response()->json(['status' => 'success', 'data' => $response], 200);
+            return response()->json(['status' => 'success', 'message' => $response['message']], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }

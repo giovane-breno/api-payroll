@@ -13,31 +13,37 @@ use Illuminate\Support\Facades\Hash;
 class CreateUserService
 {
     protected $name;
+    protected $email;
     protected $cpf;
     protected $ctps;
     protected $pis;
     protected $company_id;
     protected $role_id;
+    protected $division_id;
 
     protected $address;
     protected $phones;
 
     public function __construct(
         $name,
+        $email,
         $cpf,
         $ctps,
         $pis,
         $company_id,
         $role_id,
+        $division_id,
         $address,
         $phones,
     ) {
         $this->name = $name;
+        $this->email = $email;
         $this->cpf = $cpf;
         $this->ctps = $ctps;
         $this->pis = $pis;
         $this->company_id = $company_id;
         $this->role_id = $role_id;
+        $this->division_id = $division_id;
 
         $this->address = $address;
         $this->phones = $phones;
@@ -53,15 +59,17 @@ class CreateUserService
             $query = User::create([
                 'username' => ($this->generateUsername($this->cpf)),
                 'password' => ($this->generatePassword($this->cpf)),
-                'name' => $this->name,
+                'full_name' => $this->name,
+                'email' => $this->email,
                 'cpf' => $this->cpf,
                 'ctps' => $this->ctps,
                 'pis' => $this->pis,
                 'company_id' => $this->company_id,
                 'role_id' => $this->role_id,
+                'division_id' => $this->division_id,
             ]);
 
-            ($this->saveAddress($this->address));
+            ($this->saveAddress($query->id, $this->address));
             ($this->savePhone($query->id, $this->phones));
 
             return ['id' => $query->id, 'message' => $message];
@@ -70,10 +78,11 @@ class CreateUserService
         }
     }
 
-    public function saveAddress($address)
+    public function saveAddress($id, $address)
     {
         try {
             $query = Address::create([
+                'user_id' => $id,
                 'CEP' => $address->cep,
                 'street' => $address->street,
                 'district' => $address->district,
@@ -102,7 +111,7 @@ class CreateUserService
                 return True;
 
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
+            throw new Exception(MessageEnum::FAILURE_CREATED);
         }
     }
 
@@ -118,5 +127,5 @@ class CreateUserService
         $password_encrypted = Hash::make($password_converted);
         return $password_encrypted;
     }
-    
+
 }

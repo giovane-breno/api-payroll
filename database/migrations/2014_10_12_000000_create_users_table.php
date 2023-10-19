@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('CPF')->unique();
             $table->string('CTPS')->unique();
             $table->string('PIS')->unique();
-            $table->time('journey');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('role_id'); // Cargo Ex. Analista de T.I
             $table->unsignedBigInteger('division_id'); // Divisao Ex. Setor de Informática
@@ -40,12 +39,10 @@ return new class extends Migration {
                     'full_name' => "Administrator",
                     'email' => "admin@admin.com",
                     'username' => "admin",
-                    'password' => "admin",
-                    // alterar para o hash
+                    'password' => Hash::make('admin'), // admin
                     'CPF' => "123.456.789-10",
                     'CTPS' => "1234567-8910",
                     'PIS' => "123.45678.91-0",
-                    'journey' => '06:00',
                     'company_id' => 1,
                     'role_id' => 1,
                     'division_id' => 1,

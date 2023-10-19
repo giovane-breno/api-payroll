@@ -10,9 +10,9 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use stdClass;
 
-class doPaymentService
+class DoPaymentService
 {
-    public function doPayment()
+    public function doPayment(int $id = null)
     {
         // MessageEnum == MENSAGENS PREDEFINIDAS PARA EVITAR REPETIÇÃO DE CÓDIGO
         $message = MessageEnum::SUCCESS_CREATED;
@@ -20,43 +20,65 @@ class doPaymentService
         $fail = 0;
 
         try {
-            $userList = User::get(['id']);
-            foreach ($userList as $id) {
-                $userData = ($this->getUserData($id));
-                if ($this->checkPayrollPeriod($id)) {
-                    Payroll::create([
-                        'company_id' => $userData->company_id,
-                        'user_id' => $userData->user_id,
-                        'full_name' => $userData->full_name,
-                        'role' => $userData->role,
-                        'base_salary' => $userData->base_salary,
-                        'bonus' => $userData->bonus,
-                        'benefits' => $userData->benefits,
-                        'vacation' => $userData->vacation,
-                        'discounts' => $userData->discounts,
-                        'gross_salary' => $userData->gross_salary,
-                        'net_salary' => $userData->net_salary,
-                    ]);
+            $userList = User::get();
+            foreach ($userList as $user) {
+                $userData = ($this->getUserData($user->id));
+                if ($this->checkPayrollPeriod($user->id)) {
+                    ($this->createPayroll($userData));
                     $success++; // CONTAGEM DE PESSOAS QUE FORAM GERADAS
                 } else {
                     $fail++; // CONTAGEM DE PESSOAS QUE NAO FORAM GERADAS
                 }
             }
-
-            return ['message' => $message, 'users' => ['generated' => $success, 'not generated' => $fail]];
-
-
+            return ['message' => $message, 'data' => ['generated' => $success, 'not generated' => $fail]];
 
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
+            throw new Exception(MessageEnum::FAILURE_CREATED);
         }
-
-
     }
 
-    public function getUserData($id)
+    public function doIndividualPayment(int $id)
     {
-        $query = User::with('Role', 'Division', 'Company', 'Gratifications', 'Incidents', 'Vacations:user_id,bonus', 'Benefits')->findOrFail($id)->first();
+        $message = MessageEnum::SUCCESS_CREATED;
+
+        try {
+
+            $userData = ($this->getUserData($id));
+            if ($this->checkPayrollPeriod($id)) {
+                ($this->createPayroll($userData));
+            } else {
+                return ['message' => 'Usuário já possui o holerite do mês atual.'];
+            }
+
+            return ['message' => $message];
+
+        } catch (Exception $th) {
+            throw new Exception(MessageEnum::FAILURE_CREATED);
+        }
+    }
+
+    private function createPayroll($userData)
+    {
+        Payroll::create([
+            'company_id' => $userData->company_id,
+            'user_id' => $userData->user_id,
+            'full_name' => $userData->full_name,
+            'role' => $userData->role,
+            'base_salary' => $userData->base_salary,
+            'bonus' => $userData->bonus,
+            'benefits' => $userData->benefits,
+            'vacation' => $userData->vacation,
+            'discounts' => $userData->discounts,
+            'gross_salary' => $userData->gross_salary,
+            'net_salary' => $userData->net_salary,
+        ]);
+    }
+
+    protected function getUserData($id)
+    {
+
+        $query = User::with('Role', 'Division', 'Company', 'Gratifications', 'Incidents', 'Vacations:user_id,bonus', 'Benefits')->findOrFail($id);
+
         $discount = ($this->sumIncidents($query->incidents));
         $base_salary = $query->role->base_salary + $query->division->bonus;
         $bonus = ($this->sumGratifications($query->gratifications));
@@ -130,7 +152,7 @@ class doPaymentService
     private function checkPayrollPeriod($id)
     {
         try {
-            $query = Payroll::orderBy('created_at', 'desc')->whereUserId($id->id)->firstOrFail()->created_at;
+            $query = Payroll::orderBy('created_at', 'desc')->whereUserId($id)->firstOrFail()->created_at;
             if (!(Carbon::now()->isSameMonth($query))) {
                 return True;
             } else {

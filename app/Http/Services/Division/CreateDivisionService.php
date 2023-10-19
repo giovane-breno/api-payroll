@@ -39,7 +39,7 @@ class CreateDivisionService
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
+            throw new Exception(MessageEnum::FAILURE_CREATED );
         }
     }
 }

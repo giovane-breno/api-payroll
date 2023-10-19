@@ -23,4 +23,32 @@ class Payroll extends Model
         'gross_salary',
         'net_salary'
     ];
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id')->select([
+            'id',
+            'full_name',
+            'email',
+        ]);
+    }
+
+    public function Company()
+    {
+        return $this->belongsTo(Company::class, 'company_id')->select([
+            'id',
+            'name',
+            'corporate_name',
+            'CNPJ'
+        ]);
+    }
+
+    public function scopeFilter($query)
+    {
+        if (request('username')) {
+            $query->where('username', 'like', '%' . request('username') . '%');
+        }
+
+        return $query;
+    }
 }

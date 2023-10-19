@@ -20,7 +20,7 @@ class ListActiveRolesService
             $active = Role::filter()->orderByDesc('id')->paginate(10);
             return new RoleCollection($active);
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_FIND . $th);
+            throw new Exception(MessageEnum::FAILURE_FIND);
         }
     }
 }

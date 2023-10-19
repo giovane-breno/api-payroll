@@ -47,7 +47,7 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'string',
-            'base_salary' => 'number'
+            'base_salary' => 'numeric'
         ]);
 
         try {
@@ -57,7 +57,7 @@ class RoleController extends Controller
             );
 
             $response = $service->createRole();
-            return response()->json(['status' => 'success', 'data' => $response], 201);
+            return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
@@ -70,7 +70,7 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'string',
-            'base_salary' => 'number'
+            'base_salary' => 'numeric'
         ]);
 
         try {
@@ -95,7 +95,7 @@ class RoleController extends Controller
             $service = new DeleteRoleService();
             $response = $service->deleteRole($id);
 
-            return response()->json(['status' => 'success', 'data' => $response], 200);
+            return response()->json(['status' => 'success', 'message' => $response['message']], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }

@@ -57,13 +57,13 @@ class CreateCompanyService
 
             ($this->saveAddress($this->address));
 
-            return ['id' => $query->id, 'message' => $message];
+            return ['message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
+            throw new Exception(MessageEnum::FAILURE_CREATED);
         }
     }
 
-    public function saveAddress($address)
+    private function saveAddress($address)
     {
         try {
             $query = CompanyAddress::create([

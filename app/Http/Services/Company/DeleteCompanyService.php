@@ -15,11 +15,31 @@ class DeleteCompanyService
         $message = MessageEnum::SUCCESS_DELETED;
         try {
             $query = Company::findOrFail($id);
-            $query->delete();
+            $relations = $this->checkRelations($query);
 
-            return ['message' => $message];
+            if (!($relations)) {
+                $query->delete();
+                return ['message' => $message];
+            }
+
+            return $relations;
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_DELETED);
         }
+    }
+
+    private function checkRelations($model)
+    {
+        $message = MessageEnum::ATTR_RELATION;
+        $table = 'Empresas';
+
+        $query = $model->exams()->exists();
+
+        if ($query) {
+            $relations = $model->exams()->get(['id', 'created_at']);
+            return ['message' => $message, 'table' => $table, $relations];
+        }
+
+        return false;
     }
 }

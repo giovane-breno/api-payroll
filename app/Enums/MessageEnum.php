@@ -13,4 +13,7 @@ enum MessageEnum: string
     const FAILURE_UPDATED = 'Não foi possível atualizar os dados!';
     const FAILURE_FIND = 'Não foi possível encontrar o objeto solicitado!';
     const ATTR_RELATION = 'Há dados atribuidos a essa chave, verifique-os antes de deletar!';
+
+    const SUCCESS_LOGIN = 'Usuário Autenticado com sucesso!';
+    const SUCCESS_LOGOUT = 'Usuário deslogado com sucesso!';
 }
