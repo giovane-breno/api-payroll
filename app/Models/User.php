@@ -20,6 +20,10 @@ class User extends Authenticatable
         'password',
         'email',
         'full_name',
+        'gender',
+        'born_at',
+        'marital_status',
+        'education_level',
         'cpf',
         'ctps',
         'pis',
@@ -100,8 +104,8 @@ class User extends Authenticatable
             $query->where('username', 'like', '%' . request('username') . '%');
         }
 
-        if (request('company_id')) {
-            $query->where('company_id', '=', request('company_id'));
+        if (request('company')) {
+            $query->where('company_id', '=', request('company'));
         }
 
         return $query;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\Division\ListActiveRolesService;
+use App\Http\Services\Role\ListActiveRolesService;
 use App\Http\Services\Role\CreateRoleService;
 use App\Http\Services\Role\DeleteRoleService;
 use App\Http\Services\Role\FindRoleService;
@@ -101,3 +101,4 @@ class RoleController extends Controller
         }
     }
 }
+

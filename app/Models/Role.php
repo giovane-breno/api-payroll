@@ -12,4 +12,17 @@ class Role extends Model
         'name',
         'base_salary'
     ];
+
+    public function scopeFilter($query)
+    {
+        if (request('username')) {
+            $query->where('username', 'like', '%' . request('username') . '%');
+        }
+
+        if (request('company')) {
+            $query->where('company_id', '=', request('company'));
+        }
+
+        return $query;
+    }
 }

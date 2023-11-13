@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Services\AdminRole\CreateAdminRoleService;
 use App\Http\Services\AdminRole\DeleteAdminRoleService;
-use App\Http\Services\AdminRoles\ListActiveAdminRolesService;
-use App\Http\Services\Benefit\FindAdminRoleService;
-use App\Http\Services\Benefit\UpdateAdminRoleService;
+use App\Http\Services\AdminRole\ListActiveAdminRolesService;
+use App\Http\Services\AdminRole\FindAdminRoleService;
+use App\Http\Services\AdminRole\UpdateAdminRoleService;
 use Illuminate\Http\Request;
 
 class AdminRoleController extends Controller
@@ -97,3 +97,5 @@ class AdminRoleController extends Controller
         }
     }
 }
+
+

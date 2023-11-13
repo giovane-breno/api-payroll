@@ -12,22 +12,29 @@ use stdClass;
 
 class DoPaymentService
 {
-    public function doPayment(int $id = null)
+    /**
+     * Realiza o pagamento de todos os funcionários
+     * Utiliza as funções: getUserData(), checkPayrollPeriod(), createPayroll().
+     * MessageEnum é utilizado para reutilizar frases feitas.
+     * $success e $fail é utilizado para contabilizar os usuarios que tiveram seus holerites.
+     * 
+     * @return array contendo uma mensagem e os dados gerados.
+     */
+    public function doPayment()
     {
-        // MessageEnum == MENSAGENS PREDEFINIDAS PARA EVITAR REPETIÇÃO DE CÓDIGO
         $message = MessageEnum::SUCCESS_CREATED;
         $success = 0;
         $fail = 0;
 
         try {
-            $userList = User::get();
+            $userList = User::get(); 
             foreach ($userList as $user) {
                 $userData = ($this->getUserData($user->id));
                 if ($this->checkPayrollPeriod($user->id)) {
                     ($this->createPayroll($userData));
-                    $success++; // CONTAGEM DE PESSOAS QUE FORAM GERADAS
+                    $success++; 
                 } else {
-                    $fail++; // CONTAGEM DE PESSOAS QUE NAO FORAM GERADAS
+                    $fail++;
                 }
             }
             return ['message' => $message, 'data' => ['generated' => $success, 'not generated' => $fail]];

@@ -18,6 +18,8 @@ class BenefitTypeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'bonus' => $this->bonus,
+            'created_at' => $this->created_at->format('d/m/y H:i'),
+            'updated_at' => $this->updated_at->format('d/m/y H:i'),
         ];
     }
 }

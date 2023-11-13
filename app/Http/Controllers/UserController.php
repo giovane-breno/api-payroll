@@ -48,6 +48,10 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'gender' => 'required',
+            'born_at' => 'required',
+            'marital_status' => 'required',
+            'education_level' => 'required',
             'cpf' => 'required',
             'ctps' => 'required',
             'pis' => 'required',
@@ -63,6 +67,10 @@ class UserController extends Controller
             $service = new CreateUserService(
                 $request->name,
                 $request->email,
+                $request->gender,
+                $request->born_at,
+                $request->marital_status,
+                $request->education_level,
                 $request->cpf,
                 $request->ctps,
                 $request->pis,
@@ -131,3 +139,4 @@ class UserController extends Controller
         }
     }
 }
+

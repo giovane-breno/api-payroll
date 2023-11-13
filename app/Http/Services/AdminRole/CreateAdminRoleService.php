@@ -5,7 +5,7 @@ namespace App\Http\Services\AdminRole;
 use App\Enums\MessageEnum;
 use App\Models\AdminRole;
 use Exception;
-class CreateAdminRolesService
+class CreateAdminRoleService
 {
     protected $name;
     protected $abilities;

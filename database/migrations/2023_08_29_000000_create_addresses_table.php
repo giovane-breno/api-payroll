@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('CEP');
             $table->string('street'); // RUA
             $table->string('district'); // BAIRRO
+            $table->string('city'); // BAIRRO
             $table->string('house_number'); // Nº DA CASA
             $table->string('complement')->nullable();
             $table->string('references')->nullable();

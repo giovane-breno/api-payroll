@@ -33,6 +33,15 @@ class Admin extends Model
         ]);
     }
 
+    public function Division()
+    {
+        return $this->belongsTo(Division::class, 'division_id')->select([
+            'id',
+            'name',
+            'bonus'
+        ]);
+    }
+
     public function scopeFilter($query)
     {
         if (request('user_id')) {

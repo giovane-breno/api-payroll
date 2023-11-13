@@ -20,7 +20,7 @@ class ListActiveUsersService
             $active = User::filter()->orderByDesc('id')->paginate(10);
             return new UserCollection($active);
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_FIND.$th);
+            throw new Exception(MessageEnum::FAILURE_FIND);
         }
     }
 }

@@ -14,6 +14,10 @@ class CreateUserService
 {
     protected $name;
     protected $email;
+    protected $gender;
+    protected $born_at;
+    protected $marital_status;
+    protected $education_level;
     protected $cpf;
     protected $ctps;
     protected $pis;
@@ -27,6 +31,10 @@ class CreateUserService
     public function __construct(
         $name,
         $email,
+        $gender,
+        $born_at,
+        $marital_status,
+        $education_level,
         $cpf,
         $ctps,
         $pis,
@@ -38,6 +46,10 @@ class CreateUserService
     ) {
         $this->name = $name;
         $this->email = $email;
+        $this->gender = $gender;
+        $this->born_at = $born_at;
+        $this->marital_status = $marital_status;
+        $this->education_level = $education_level;
         $this->cpf = $cpf;
         $this->ctps = $ctps;
         $this->pis = $pis;
@@ -61,6 +73,10 @@ class CreateUserService
                 'password' => ($this->generatePassword($this->cpf)),
                 'full_name' => $this->name,
                 'email' => $this->email,
+                'gender' => $this->gender,
+                'born_at' => $this->born_at,
+                'marital_status' => $this->marital_status,
+                'education_level' => $this->education_level,
                 'cpf' => $this->cpf,
                 'ctps' => $this->ctps,
                 'pis' => $this->pis,

@@ -36,4 +36,17 @@ class Benefit extends Model
         return $this->belongsTo(BenefitType::class, 'benefit_id');
     }
 
+    public function scopeFilter($query)
+    {
+        if (request('username')) {
+            $query->where('username', 'like', '%' . request('username') . '%');
+        }
+
+        if (request('company')) {
+            $query->where('company_id', '=', request('company'));
+        }
+
+        return $query;
+    }
+
 }
