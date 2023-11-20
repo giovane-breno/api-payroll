@@ -15,7 +15,8 @@ class DeleteCompanyService
         $message = MessageEnum::SUCCESS_DELETED;
         try {
             $query = Company::findOrFail($id);
-            $relations = $this->checkRelations($query);
+            // $relations = $this->checkRelations($query);
+            $relations = false;
 
             if (!($relations)) {
                 $query->delete();
@@ -24,7 +25,7 @@ class DeleteCompanyService
 
             return $relations;
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_DELETED);
+            throw new Exception(MessageEnum::FAILURE_DELETED.$th);
         }
     }
 

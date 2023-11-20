@@ -16,4 +16,9 @@ class Company extends Model
         'town_registration',
         'state_registration'
     ];
+
+    public function Address()
+    {
+        return $this->hasOne(CompanyAddress::class, 'company_id');
+    }
 }

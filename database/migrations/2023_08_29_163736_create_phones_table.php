@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->string("phone_number");
+            $table->timestamps();
+            
         });
 
         Schema::table('phones', function($table) {

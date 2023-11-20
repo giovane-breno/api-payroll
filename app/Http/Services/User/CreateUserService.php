@@ -85,8 +85,13 @@ class CreateUserService
                 'division_id' => $this->division_id,
             ]);
 
-            ($this->saveAddress($query->id, $this->address));
-            ($this->savePhone($query->id, $this->phones));
+            if ($query) {
+                if (($this->saveAddress($query->id, $this->address)) && (($this->savePhone($query->id, $this->phones)))) {
+                    return ['message' => $message];
+                } else {
+                    $query->delete();
+                }
+            }
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {
@@ -99,36 +104,41 @@ class CreateUserService
         try {
             $query = Address::create([
                 'user_id' => $id,
-                'CEP' => $address->cep,
-                'street' => $address->street,
-                'district' => $address->district,
-                'house_number' => $address->house_number,
-                'complement' => $address->complement,
-                'references' => $address->references
+                'CEP' => $address['cep'],
+                'street' => $address['street'],
+                'district' => $address['district'],
+                'city' => $address['city'],
+                'house_number' => $address['house_number'],
+                'complement' => $address['complement'] ?? null,
+                'references' => $address['references'] ?? null,
             ]);
 
             if ($query)
                 return True;
 
         } catch (Exception $e) {
-            throw new Exception(MessageEnum::FAILURE_CREATED . $e);
+            throw new Exception(MessageEnum::FAILURE_CREATED.$e);
         }
+
+        return False;
     }
 
-    public function savePhone($id, $phone)
+    public function savePhone($id, $phones)
     {
         try {
             $query = Phone::create([
                 'user_id' => $id,
-                'phone_number' => $phone
+                'phone_number' => $phones['phone_number']
             ]);
 
             if ($query)
                 return True;
 
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED);
+            throw new Exception(MessageEnum::FAILURE_CREATED.$th);
         }
+
+        return False;
     }
 
     private function generateUsername($cpf)

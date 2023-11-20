@@ -45,23 +45,59 @@ class UserController extends Controller
      */
     public function createUser(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'gender' => 'required',
-            'born_at' => 'required',
-            'marital_status' => 'required',
-            'education_level' => 'required',
-            'cpf' => 'required',
-            'ctps' => 'required',
-            'pis' => 'required',
-            'company_id' => 'required',
-            'role_id' => 'required',
-            'division_id' => 'required',
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|unique:users',
+                'gender' => 'required',
+                'born_at' => 'required',
+                'marital_status' => 'required',
+                'education_level' => 'required',
+                'cpf' => 'required|unique:users',
+                'ctps' => 'required|unique:users',
+                'pis' => 'required|unique:users',
+                'company_id' => 'required',
+                'role_id' => 'required',
+                'division_id' => 'required',
 
-            'address' => 'required',
-            'phones' => 'required',
-        ]);
+                'address.cep' => 'required',
+                'address.street' => 'required',
+                'address.district' => 'required',
+                'address.house_number' => 'required',
+
+                'phones.phone_number' => 'required',
+            ],
+            [
+                'name.required' => 'O campo Nome é obrigatório!',
+                'email.required' => 'O campo Email é obrigatório!',
+                'gender.required' => 'O campo Genero é obrigatório!',
+                'born_at.required' => 'O campo Data de Nascimento é obrigatório!',
+                'marital_status.required' => 'O campo Estado Civíl é obrigatório!',
+                'education_level.required' => 'O campo Escolaridade é obrigatório!',
+                'cpf.required' => 'O campo CPF é obrigatório!',
+                'ctps.required' => 'O campo CTPS é obrigatório!',
+                'pis.required' => 'O campo PIS é obrigatório!',
+                'role_id.required' => 'O campo Função é obrigatório!',
+                'division_id.required' => 'O campo Divisão é obrigatório!',
+
+                'email.unique' => 'O Email informado já está cadastrado.',
+                'cpf.unique' => 'O CPF informado já está cadastrado.',
+                'ctps.unique' => 'O CTPS informado já está cadastrado.',
+                'pis.unique' => 'O PIS informado já está cadastrado.',
+
+
+                'address.cep.required' => 'O campo CEP é obrigatório!',
+                'address.street.required' => 'O campo Rua é obrigatório!',
+                'address.district.required' => 'O campo Bairro é obrigatório!',
+                'address.house_number.required' => 'O campo Número da Casa é obrigatório!',
+
+                'phones.phone_number.required' => 'O campo Telefone / Celular é obrigatório!',
+
+            ]
+        );
+
+
+
 
         try {
             $service = new CreateUserService(

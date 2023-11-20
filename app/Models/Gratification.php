@@ -32,6 +32,10 @@ class Gratification extends Model
             $query->where('user_id', '=', request('user_id'));
         }
 
+        if (request('company')) {
+            $query->where('company_id', '=', request('company'));
+        }
+
         return $query;
     }
 }

@@ -15,6 +15,7 @@ class Payroll extends Model
         'user_id',
         'full_name',
         'role',
+        'division',
         'base_salary',
         'bonus',
         'benefits',
@@ -43,10 +44,24 @@ class Payroll extends Model
         ]);
     }
 
+    public function CompanyAddress()
+    {
+        return $this->hasOne(CompanyAddress::class, 'company_id', 'company_id')->select([
+                'id',
+                'street',
+                'district',
+                'house_number'
+            ]);
+    }
+
     public function scopeFilter($query)
     {
         if (request('username')) {
             $query->where('username', 'like', '%' . request('username') . '%');
+        }
+
+        if (request('company')) {
+            $query->where('company_id', '=', request('company'));
         }
 
         return $query;

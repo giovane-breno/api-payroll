@@ -15,7 +15,7 @@ class FindPayrollService
     public function findPayroll(int $id)
     {
         try {
-            $query = Payroll::whereUserId($id)->paginate(10);
+            $query = Payroll::filter()->whereUserId($id)->paginate(10);
             return new PayrollCollection($query);
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_FIND);

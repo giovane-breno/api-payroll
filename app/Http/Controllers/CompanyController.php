@@ -45,13 +45,34 @@ class CompanyController extends Controller
      */
     public function createCompany(Request $request)
     {
-        $request->validate([
-            'name' => 'string',
-            'corporate_name' => 'string',
-            'CNPJ' => 'string',
-            'town_registration' => 'string',
-            'state_registration' => 'string'
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'corporate_name' => 'required',
+                'CNPJ' => 'unique:companies|required',
+                'town_registration' => 'required',
+                'state_registration' => 'required',
+
+                'address.cep' => 'required',
+                'address.street' => 'required',
+                'address.district' => 'required',
+                'address.house_number' => 'required',
+            ],
+            [
+                'name.required' => 'O campo Nome Fantasia é obrigatório!',
+                'corporate_name.required' => 'O campo Razão Social é obrigatório!',
+                'town_registration.required' => 'O campo Inscrição Municipal é obrigatório!',
+                'state_registration.required' => 'O campo Inscrição Estadual é obrigatório!',
+                'CNPJ.required' => 'O campo CNPJ é obrigatório!',
+                'CNPJ.unique' => 'O CNPJ informado já está cadastrado.',
+
+                'address.cep.required' => 'O campo CEP é obrigatório!',
+                'address.street.required' => 'O campo Rua é obrigatório!',
+                'address.district.required' => 'O campo Bairro é obrigatório!',
+                'address.house_number.required' => 'O campo Número da Casa é obrigatório!',
+
+            ]
+        );
 
         try {
             $service = new CreateCompanyService(
@@ -77,11 +98,12 @@ class CompanyController extends Controller
     public function updateCompany(Request $request, int $id)
     {
         $request->validate([
-            'name' => 'string',
-            'corporate_name' => 'string',
-            'CNPJ' => 'string',
-            'town_registration' => 'string',
-            'state_registration' => 'string'
+            'name' => 'string|required',
+            'corporate_name' => 'string|required',
+            'CNPJ' => ['unique:Company', 'string', 'required'],
+            'town_registration' => 'string|required',
+            'state_registration' => 'string|required',
+            'address' => 'string|required',
         ]);
 
         try {
@@ -91,8 +113,7 @@ class CompanyController extends Controller
                 $request->CNPJ,
                 $request->town_registration,
                 $request->state_registration,
-
-                $request->address,
+                $request->address
             );
 
             $response = $service->updateCompany($id);

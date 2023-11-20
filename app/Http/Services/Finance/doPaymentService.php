@@ -27,17 +27,17 @@ class DoPaymentService
         $fail = 0;
 
         try {
-            $userList = User::get(); 
+            $userList = User::get();
             foreach ($userList as $user) {
                 $userData = ($this->getUserData($user->id));
                 if ($this->checkPayrollPeriod($user->id)) {
                     ($this->createPayroll($userData));
-                    $success++; 
+                    $success++;
                 } else {
                     $fail++;
                 }
             }
-            return ['message' => $message, 'data' => ['generated' => $success, 'not generated' => $fail]];
+            return ['message' => $message, 'data' => ['generated' => $success, 'not_generated' => $fail]];
 
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_CREATED);
@@ -54,7 +54,7 @@ class DoPaymentService
             if ($this->checkPayrollPeriod($id)) {
                 ($this->createPayroll($userData));
             } else {
-                return ['message' => 'Usuário já possui o holerite do mês atual.'];
+                throw new Exception('Usuário já possui o holerite do mês atual.');
             }
 
             return ['message' => $message];
@@ -71,6 +71,7 @@ class DoPaymentService
             'user_id' => $userData->user_id,
             'full_name' => $userData->full_name,
             'role' => $userData->role,
+            'division' => $userData->division,
             'base_salary' => $userData->base_salary,
             'bonus' => $userData->bonus,
             'benefits' => $userData->benefits,
@@ -99,6 +100,7 @@ class DoPaymentService
         $userData->user_id = $query->id;
         $userData->full_name = $query->full_name;
         $userData->role = $query->role->name;
+        $userData->division = $query->division->name;
         $userData->base_salary = $base_salary;
         $userData->bonus = $bonus;
         $userData->benefits = $benefits;

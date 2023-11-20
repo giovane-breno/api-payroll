@@ -12,7 +12,7 @@ class FindUserService
     public function findUser(int $id)
     {
         try {
-            $query = User::findOrFail($id);
+            $query = User::filter()->findOrFail($id);
             return new UserResource($query);
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_FIND);

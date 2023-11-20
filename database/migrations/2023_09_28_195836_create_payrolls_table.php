@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->unsignedBigInteger("user_id");
             $table->string("full_name");
             $table->string("role");
+            $table->string("division");
             $table->decimal("base_salary");
             $table->decimal("bonus");
             $table->decimal("benefits");

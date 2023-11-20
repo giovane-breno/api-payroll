@@ -55,24 +55,31 @@ class CreateCompanyService
                 'state_registration' => $this->state_registration,
             ]);
 
-            ($this->saveAddress($this->address));
+            if ($query) {
+                if ($this->saveAddress($query->id, $this->address)) {
+                    return ['message' => $message];
+                } else {
+                    $query->delete();
+                }
+            }
 
             return ['message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED);
+            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
         }
     }
 
-    private function saveAddress($address)
+    private function saveAddress($id, $address)
     {
         try {
             $query = CompanyAddress::create([
-                'CEP' => $address->cep,
-                'street' => $address->street,
-                'district' => $address->district,
-                'house_number' => $address->house_number,
-                'complement' => $address->complement,
-                'references' => $address->references
+                'company_id' => $id,
+                'CEP' => $address['cep'],
+                'street' => $address['street'],
+                'district' => $address['district'],
+                'house_number' => $address['house_number'],
+                'complement' => $address['complement'] ?? null,
+                'references' => $address['references'] ?? null,
             ]);
 
             if ($query)
@@ -81,5 +88,7 @@ class CreateCompanyService
         } catch (Exception $e) {
             throw new Exception(MessageEnum::FAILURE_CREATED . $e);
         }
+
+        return False;
     }
 }

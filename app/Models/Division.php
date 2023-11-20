@@ -20,10 +20,10 @@ class Division extends Model
             $query->where('username', 'like', '%' . request('username') . '%');
         }
 
-        if (request('company_id')) {
-            $query->where('company_id', '=', request('company_id'));
+        if (request('company')) {
+            $query->where('company_id', '=', request('company'));
         }
-
+        
         return $query;
     }
 }

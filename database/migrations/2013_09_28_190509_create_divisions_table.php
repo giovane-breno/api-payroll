@@ -21,6 +21,12 @@ return new class extends Migration
         DB::table('divisions')->insert(
             array(
                 [
+                    'name' => 'Sem Atribuição',
+                    'bonus' => 0,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
+                [
                     'name' => 'Desenvolvimento do Sistema',
                     'bonus' => 0,
                     'created_at' => now(),

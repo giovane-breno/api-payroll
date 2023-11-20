@@ -54,6 +54,11 @@ class User extends Authenticatable
         ]);
     }
 
+    public function CompanyAddress()
+    {
+        return $this->hasOne(CompanyAddress::class, 'company_id');
+    }
+
     public function Role()
     {
         return $this->belongsTo(Role::class, 'role_id')->select([

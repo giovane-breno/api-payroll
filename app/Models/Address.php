@@ -13,6 +13,7 @@ class Address extends Model
         'CEP',
         'street',
         'district',
+        'city',
         'house_number',
         'complement',
         'references'

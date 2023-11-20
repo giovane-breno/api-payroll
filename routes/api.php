@@ -14,7 +14,10 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VacationController;
 use App\Models\AdminRole;
+use App\Models\Benefit;
+use App\Models\BenefitType;
 use App\Models\Company;
+use App\Models\Division;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -48,7 +51,21 @@ Route::middleware('auth:sanctum')->group(
                 });
 
                 Route::get('/workers', function () {
-                    $response = User::filter()->orderByDesc('id')->get(['full_name']);
+                    $response = User::filter()->orderByDesc('id')->get(['id','full_name']);
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
+
+                Route::get('/divisions', function () {
+                    $response = Division::filter()->orderByDesc('id')->get(['id', 'name']);
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
+
+                Route::get('/roles', function () {
+                    $response = Role::filter()->orderByDesc('id')->get(['id', 'name']);
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
+                Route::get('/benefits', function () {
+                    $response = BenefitType::filter()->orderByDesc('id')->get(['id', 'name']);
                     return response()->json(['status' => 'success', 'data' => $response], 200);
                 });
             }
@@ -117,10 +134,10 @@ Route::middleware('auth:sanctum')->group(
             function () {
                 Route::prefix('payment')->group(
                     function () {
-                        Route::get('/{id}', [FinanceController::class, 'findPayroll'])->middleware('ability:isOperator');
                         Route::get('/', [FinanceController::class, 'listActivePayrolls'])->middleware('ability:isOperator');
                         Route::get('/p', [FinanceController::class, 'doPayment'])->middleware('ability:doPayment');
                         Route::get('/p/{id}', [FinanceController::class, 'doIndividualPayment'])->middleware('ability:doPayment');
+                        Route::get('/{id}', [FinanceController::class, 'findPayroll'])->middleware('ability:isOperator');
                         Route::delete('/{id}', [FinanceController::class, 'deletePayroll'])->middleware('ability:deletePayroll');
 
                     }
