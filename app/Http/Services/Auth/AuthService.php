@@ -22,7 +22,8 @@ class AuthService
 
             $user->tokens()->delete();
 
-            $tokenResult = $user->createToken('Personal Access Token');
+            $abilities = ($this)->getRoleAbilities($user->isAdmin->admin_role_id);
+            $tokenResult = $user->createToken('Personal Access Token', $abilities);
 
             return [
                 'message' => $message,
@@ -41,5 +42,12 @@ class AuthService
         $user->tokens()->delete();
 
         return ['message' => $message];
+    }
+
+    private function getRoleAbilities(int $id)
+    {
+        $user = AdminRole::find($id);
+        $abilities = json_decode($user->abilities, true);
+        return $abilities;
     }
 }

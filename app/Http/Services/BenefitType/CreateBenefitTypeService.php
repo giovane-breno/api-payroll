@@ -3,6 +3,7 @@
 namespace App\Http\Services\BenefitType;
 
 use App\Enums\MessageEnum;
+use App\Models\BenefitType;
 use App\Models\Company;
 use Exception;
 
@@ -27,9 +28,9 @@ class CreateBenefitTypeService
 
         try {
             // User::create == função utilizada para salvar os dados no banco de dados.
-            Company::create([
+            BenefitType::create([
                 'name' => $this->name,
-                'corporate_name' => $this->bonus,
+                'bonus' => $this->bonus,
             ]);
 
             return ['message' => $message];

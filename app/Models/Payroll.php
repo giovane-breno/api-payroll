@@ -60,6 +60,10 @@ class Payroll extends Model
             $query->where('username', 'like', '%' . request('username') . '%');
         }
 
+        if (request('month')) {
+            $query->whereMonth('created_at', '=', request('month'));
+        }
+
         if (request('company')) {
             $query->where('company_id', '=', request('company'));
         }

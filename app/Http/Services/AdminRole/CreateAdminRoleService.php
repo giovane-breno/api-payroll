@@ -32,7 +32,7 @@ class CreateAdminRoleService
 
             return ['message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED);
+            throw new Exception(MessageEnum::FAILURE_CREATED. $th);
         }
     }
 }

@@ -12,6 +12,11 @@ class Role extends Model
         'name',
         'base_salary'
     ];
+    
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function scopeFilter($query)
     {
@@ -20,7 +25,9 @@ class Role extends Model
         }
 
         if (request('company')) {
-            $query->where('company_id', '=', request('company'));
+            $query->whereHas('user', function ($q) {
+                $q->where('company_id', '=', request('company'));
+            });
         }
 
         return $query;

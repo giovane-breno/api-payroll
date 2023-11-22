@@ -29,11 +29,13 @@ class Incident extends Model
     public function scopeFilter($query)
     {
         if (request('user_id')) {
-            $query->where('user_id', '=', request('user_id') );
+            $query->where('user_id', '=', request('user_id'));
         }
 
         if (request('company')) {
-            $query->where('company_id', '=', request('company'));
+            $query->whereHas('user', function ($q) {
+                $q->where('company_id', '=', request('company'));
+            });
         }
 
         return $query;

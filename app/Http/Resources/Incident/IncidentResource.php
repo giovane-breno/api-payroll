@@ -19,7 +19,7 @@ class IncidentResource extends JsonResource
             'id' => $this->id,
             'user' => $this->User,
             'incident_reason' => $this->incident_reason,
-            'discounted_amount' => $this->discounted_amount,
+            'discounted_amount' => number_format($this->discounted_amount,2),
             'start_date' => Carbon::parse($this->start_date)->format('d/m/y'),
             'end_date' => Carbon::parse($this->end_date)->format('d/m/y'),
             'created_at' => $this->created_at->format('d/m/y H:i'),

@@ -40,7 +40,7 @@ class BenefitTypeController extends Controller
      * Cadastra os novas Divisões no sistema.
      */
     public function createBenefit(Request $request)
-    {
+{
         $request->validate([
             'name' => 'string',
             'bonus' => 'numeric'

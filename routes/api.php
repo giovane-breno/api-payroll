@@ -114,9 +114,9 @@ Route::middleware('auth:sanctum')->group(
             function () {
                 Route::get('/', [AdminRoleController::class, 'ListActiveAdminRole'])->middleware('ability:isOperator');
                 Route::get('/{id}', [AdminRoleController::class, 'findAdminRole'])->middleware('ability:isOperator');
-                Route::post('/', [AdminRoleController::class, 'createAdminRole'])->middleware('ability:createRole');
-                Route::put('/{id}', [AdminRoleController::class, 'updateAdminRole'])->middleware('ability:updateRole');
-                Route::delete('/{id}', [AdminRoleController::class, 'deleteAdminRole'])->middleware('ability:deleteRole');
+                Route::post('/', [AdminRoleController::class, 'createAdminRole'])->middleware('ability:createAdminRole');
+                Route::put('/{id}', [AdminRoleController::class, 'updateAdminRole'])->middleware('ability:updateAdminRole');
+                Route::delete('/{id}', [AdminRoleController::class, 'deleteAdminRole'])->middleware('ability:deleteAdminRole');
             }
         );
 

@@ -43,7 +43,9 @@ class Benefit extends Model
         }
 
         if (request('company')) {
-            $query->where('company_id', '=', request('company'));
+            $query->whereHas('user', function ($q) {
+                $q->where('company_id', '=', request('company'));
+            });
         }
 
         return $query;

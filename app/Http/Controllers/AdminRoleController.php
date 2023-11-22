@@ -43,7 +43,7 @@ class AdminRoleController extends Controller
     {
         $request->validate([
             'name' => 'string',
-            'abilities' => 'array'
+            'abilities' => 'required'
         ]);
 
         try {
