@@ -12,15 +12,15 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'string',
-            'password' => 'string',
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
         try {
             $service = new AuthService();
             $response = $service->login($request->username, $request->password);
 
-            return response()->json(['status' => 'success', 'message'=> $response['message'], 'data' => $response['user']], 200);
+            return response()->json(['status' => 'success', 'message' => $response['message'], 'data' => $response['user']], 200);
         } catch (Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }

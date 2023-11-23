@@ -22,7 +22,12 @@ class AuthService
 
             $user->tokens()->delete();
 
-            $abilities = ($this)->getRoleAbilities($user->isAdmin->admin_role_id);
+            if ($user->isAdmin) {
+                $abilities = ($this)->getRoleAbilities($user->isAdmin->admin_role_id);
+            } else {
+                $abilities = [''];
+            }
+
             $tokenResult = $user->createToken('Personal Access Token', $abilities);
 
             return [

@@ -37,8 +37,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/token', function (Request $request) {
+    $response = User::with('company', 'role', 'division')->find(Auth::id());
+    return response()->json(['status' => 'success', 'data' => $response], 200);
 });
 
 Route::middleware('auth:sanctum')->group(
@@ -51,7 +52,7 @@ Route::middleware('auth:sanctum')->group(
                 });
 
                 Route::get('/workers', function () {
-                    $response = User::filter()->orderByDesc('id')->get(['id','full_name']);
+                    $response = User::filter()->orderByDesc('id')->get(['id', 'full_name']);
                     return response()->json(['status' => 'success', 'data' => $response], 200);
                 });
 
@@ -137,7 +138,7 @@ Route::middleware('auth:sanctum')->group(
                         Route::get('/', [FinanceController::class, 'listActivePayrolls'])->middleware('ability:isOperator');
                         Route::get('/p', [FinanceController::class, 'doPayment'])->middleware('ability:doPayment');
                         Route::get('/p/{id}', [FinanceController::class, 'doIndividualPayment'])->middleware('ability:doPayment');
-                        Route::get('/{id}', [FinanceController::class, 'findPayroll'])->middleware('ability:isOperator');
+                        Route::get('/{id}', [FinanceController::class, 'findPayroll']);
                         Route::delete('/{id}', [FinanceController::class, 'deletePayroll'])->middleware('ability:deletePayroll');
 
                     }
