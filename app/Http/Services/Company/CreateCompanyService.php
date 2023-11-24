@@ -77,6 +77,7 @@ class CreateCompanyService
                 'CEP' => $address['cep'],
                 'street' => $address['street'],
                 'district' => $address['district'],
+                'city' => $address['city'],
                 'house_number' => $address['house_number'],
                 'complement' => $address['complement'] ?? null,
                 'references' => $address['references'] ?? null,

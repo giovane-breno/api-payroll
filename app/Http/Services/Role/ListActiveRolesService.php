@@ -17,7 +17,7 @@ class ListActiveRolesService
             // filter() -- para pegar os filtros, como filtrar por cargo
             // orderByDesc -- para ordernar por id
             // paginate(10) -- para pegar somente 10 resultados por vez
-            $active = Role::filter()->orderByDesc('id')->paginate(10);
+            $active = Role::filter()->orderByDesc('id')->where('id', '>', '2')->paginate(10);
             return new RoleCollection($active);
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_FIND.$th);

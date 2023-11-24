@@ -99,7 +99,7 @@ class CreateUserService
         }
     }
 
-    public function saveAddress($id, $address)
+    private function saveAddress($id, $address)
     {
         try {
             $query = Address::create([
@@ -123,7 +123,7 @@ class CreateUserService
         return False;
     }
 
-    public function savePhone($id, $phones)
+    private function savePhone($id, $phones)
     {
         try {
             $query = Phone::create([

@@ -17,7 +17,7 @@ class RoleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'base_salary' => number_format($this->base_salary, 2),
+            'base_salary' => number_format($this->base_salary, 2, '.', 0),
             'created_at' => $this->created_at->format('d/m/y H:i'),
             'updated_at' => $this->updated_at->format('d/m/y H:i'),
         ];

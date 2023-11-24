@@ -5,6 +5,7 @@ namespace App\Http\Services\Incident;
 use App\Enums\MessageEnum;
 use App\Models\Incident;
 use Exception;
+use Illuminate\Support\Carbon;
 
 class UpdateIncidentService
 {
@@ -36,17 +37,17 @@ class UpdateIncidentService
         try {
             // Incident::fill == função utilizada para atualizar os dados
             $query = Incident::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'user_id' => $this->user_id,
                 'incident_reason' => $this->incident_reason,
                 'discounted_amount' => $this->discounted_amount,
-                'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
-            ]);
+                'start_date' => Carbon::parse($this->start_date),
+                'end_date' => Carbon::parse($this->end_date),
+            ])->save();
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_UPDATED);
+            throw new Exception(MessageEnum::FAILURE_UPDATED.$th);
         }
     }
 }

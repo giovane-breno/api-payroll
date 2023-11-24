@@ -28,10 +28,10 @@ class UpdateDivisionService
         try {
             // Division::fill == função utilizada para atualizar os dados
             $query = Division::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'name' => $this->name,
                 'bonus' => $this->bonus,
-            ]);
+            ])->save();
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {

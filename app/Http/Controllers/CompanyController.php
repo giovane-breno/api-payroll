@@ -8,6 +8,7 @@ use App\Http\Services\Company\FindCompanyService;
 use App\Http\Services\Company\ListActiveCompaniesService;
 use App\Http\Services\Company\UpdateCompanyService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
 {
@@ -56,6 +57,7 @@ class CompanyController extends Controller
                 'address.cep' => 'required',
                 'address.street' => 'required',
                 'address.district' => 'required',
+                'address.city' => 'required',
                 'address.house_number' => 'required',
             ],
             [
@@ -69,6 +71,7 @@ class CompanyController extends Controller
                 'address.cep.required' => 'O campo CEP é obrigatório!',
                 'address.street.required' => 'O campo Rua é obrigatório!',
                 'address.district.required' => 'O campo Bairro é obrigatório!',
+                'address.city.required' => 'O campo Cidade é obrigatório!',
                 'address.house_number.required' => 'O campo Número da Casa é obrigatório!',
 
             ]
@@ -97,14 +100,37 @@ class CompanyController extends Controller
      */
     public function updateCompany(Request $request, int $id)
     {
-        $request->validate([
-            'name' => 'string|required',
-            'corporate_name' => 'string|required',
-            'CNPJ' => ['unique:Company', 'string', 'required'],
-            'town_registration' => 'string|required',
-            'state_registration' => 'string|required',
-            'address' => 'string|required',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'corporate_name' => 'required',
+                'CNPJ' => 'required',
+                Rule::unique('companies')->ignore($id),
+                'town_registration' => 'required',
+                'state_registration' => 'required',
+
+                'address.cep' => 'required',
+                'address.street' => 'required',
+                'address.district' => 'required',
+                'address.city' => 'required',
+                'address.house_number' => 'required',
+            ],
+            [
+                'name.required' => 'O campo Nome Fantasia é obrigatório!',
+                'corporate_name.required' => 'O campo Razão Social é obrigatório!',
+                'town_registration.required' => 'O campo Inscrição Municipal é obrigatório!',
+                'state_registration.required' => 'O campo Inscrição Estadual é obrigatório!',
+                'CNPJ.required' => 'O campo CNPJ é obrigatório!',
+                'CNPJ.unique' => 'O CNPJ informado já está cadastrado.',
+
+                'address.cep.required' => 'O campo CEP é obrigatório!',
+                'address.street.required' => 'O campo Rua é obrigatório!',
+                'address.district.required' => 'O campo Bairro é obrigatório!',
+                'address.city.required' => 'O campo Cidade é obrigatório!',
+                'address.house_number.required' => 'O campo Número da Casa é obrigatório!',
+
+            ]
+        );
 
         try {
             $service = new UpdateCompanyService(

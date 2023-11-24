@@ -23,14 +23,14 @@ return new class extends Migration
             array(
                 [
                     'name' => 'Master',
-                    'abilities' => "['*']",
+                    'abilities' => '["isAdmin","isOperator","doPayment","deletePayroll","createCompany","createUser","createRole","createDivision","createBenefit","createAdminRole","createIncident","createVacation","createGratification","promoteAdmin","demoteAdmin","updateUser","deleteUser","updateDivision","updateAdminRole","updateCompany","updateRole","updateGratification","updateVacation","updateBenefit","updateIncident","deleteRole","deleteAdminRole","deleteCompany","deleteVacation","deleteIncident","deleteGratification","deleteBenefit"]',
                     // 'level' => 1,
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
                 [
                     'name' => 'Operador',
-                    'abilities' => "['']",
+                    'abilities' => '["isOperator", "doPayment", "createCompany","createUser","createRole","createDivision","createBenefit","createIncident","createVacation","createGratification","updateUser","deleteUser","updateDivision","updateCompany","updateRole","updateGratification","updateVacation","updateBenefit","updateIncident","deleteRole","deleteAdminRole","deleteCompany","deleteVacation","deleteIncident","deleteGratification","deleteBenefit"]',
                     // 'level' => 2,
                     'created_at' => now(),
                     'updated_at' => now()

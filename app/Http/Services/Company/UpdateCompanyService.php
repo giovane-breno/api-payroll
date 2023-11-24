@@ -41,20 +41,20 @@ class UpdateCompanyService
         try {
             // User::fill == função utilizada para atualizar os dados
             $query = Company::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'name' => $this->name,
                 'corporate_name' => $this->corporate_name,
                 'CNPJ' => $this->CNPJ,
                 'town_registration' => $this->town_registration,
                 'state_registration' => $this->state_registration,
-            ]);
+            ])->save();
 
             ($this->saveAddress($id, $this->address));
 
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_UPDATED);
+            throw new Exception(MessageEnum::FAILURE_UPDATED . $th);
         }
     }
 
@@ -62,14 +62,15 @@ class UpdateCompanyService
     {
         try {
             $query = CompanyAddress::whereCompanyId($id)->first();
-            $query::fill([
-                'CEP' => $address->cep,
-                'street' => $address->street,
-                'district' => $address->district,
-                'house_number' => $address->house_number,
-                'complement' => $address->complement,
-                'references' => $address->references
-            ]);
+            $query->fill([
+                'CEP' => $address['cep'],
+                'street' => $address['street'],
+                'district' => $address['district'],
+                'city' => $address['city'],
+                'house_number' => $address['house_number'],
+                'complement' => $address['complement'] ?? null,
+                'references' => $address['references'] ?? null,
+            ])->save();
 
             if ($query)
                 return True;

@@ -27,7 +27,7 @@ class UpdateAdminRoleService
         try {
             // User::fill == função utilizada para atualizar os dados
             $query = AdminRole::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'name' => $this->name,
                 'abilities' => $this->abilities,
             ]);

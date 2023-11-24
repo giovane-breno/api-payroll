@@ -18,9 +18,9 @@ class VacationResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => $this->User,
-            'bonus' => $this->bonus,
-            'start_date' => Carbon::parse($this->start_date)->format('d/m/y'),
-            'end_date' => Carbon::parse($this->end_date)->format('d/m/y'),
+            'bonus' => number_format($this->bonus, 2),
+            'start_date' => Carbon::parse($this->start_date)->format('d/m/Y'),
+            'end_date' => Carbon::parse($this->end_date)->format('d/m/Y'),
             'created_at' => $this->created_at->format('d/m/y H:i'),
             'updated_at' => $this->updated_at->format('d/m/y H:i'),
         ];

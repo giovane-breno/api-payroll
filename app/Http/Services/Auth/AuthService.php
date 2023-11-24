@@ -21,13 +21,12 @@ class AuthService
             $user = User::with('company', 'role', 'division')->find(Auth::id());
 
             $user->tokens()->delete();
-
             if ($user->isAdmin) {
+
                 $abilities = ($this)->getRoleAbilities($user->isAdmin->admin_role_id);
             } else {
                 $abilities = [''];
             }
-
             $tokenResult = $user->createToken('Personal Access Token', $abilities);
 
             return [
@@ -52,7 +51,9 @@ class AuthService
     private function getRoleAbilities(int $id)
     {
         $user = AdminRole::find($id);
-        $abilities = json_decode($user->abilities, true);
+
+        $abilities = json_decode($user->abilities);
+
         return $abilities;
     }
 }

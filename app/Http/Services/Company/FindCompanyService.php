@@ -3,6 +3,7 @@
 namespace App\Http\Services\Company;
 
 use App\Enums\MessageEnum;
+use App\Http\Resources\Company\CompanyResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\Company;
 use Exception;
@@ -13,7 +14,7 @@ class FindCompanyService
     {
         try {
             $query = Company::findOrFail($id);
-            return new UserResource($query);
+            return new CompanyResource($query);
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_FIND);
         }

@@ -38,7 +38,7 @@ class AdminController extends Controller
     /**
      * Cadastra novos administradores no sistema.
      */
-    public function promoteAdmin(Request $request)
+    public function promoteAdmin(Request $request, int $id)
     {
         $request->validate([
             'user_id' => 'numeric',
@@ -51,7 +51,7 @@ class AdminController extends Controller
                 $request->admin_role_id,
             );
 
-            $response = $service->promoteAdmin();
+            $response = $service->promoteAdmin($id);
             return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);

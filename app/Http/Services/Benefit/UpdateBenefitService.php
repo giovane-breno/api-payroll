@@ -27,7 +27,7 @@ class UpdateBenefitService
         try {
             // User::fill == função utilizada para atualizar os dados
             $query = Benefit::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'user_id' => $this->user_id,
                 'benefit_id' => $this->benefit_id,
             ]);

@@ -27,10 +27,10 @@ class UpdateRoleService
         try {
             // Division::fill == função utilizada para atualizar os dados
             $query = Role::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'name' => $this->name,
                 'base_salary' => $this->base_salary,
-            ]);
+            ])->save();
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {

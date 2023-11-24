@@ -65,8 +65,13 @@ Route::middleware('auth:sanctum')->group(
                     $response = Role::filter()->orderByDesc('id')->get(['id', 'name']);
                     return response()->json(['status' => 'success', 'data' => $response], 200);
                 });
+
+                Route::get('/roles/a', function () {
+                    $response = AdminRole::orderByDesc('id')->get(['id', 'name']);
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
                 Route::get('/benefits', function () {
-                    $response = BenefitType::filter()->orderByDesc('id')->get(['id', 'name']);
+                    $response = BenefitType::orderByDesc('id')->get(['id', 'name']);
                     return response()->json(['status' => 'success', 'data' => $response], 200);
                 });
             }
@@ -78,7 +83,7 @@ Route::middleware('auth:sanctum')->group(
                     function () {
                         Route::get('/', [AdminController::class, 'ListAdmins'])->middleware('ability:isAdmin');
                         Route::get('/{id}', [AdminController::class, 'findAdmin'])->middleware('ability:isAdmin');
-                        Route::post('/', [AdminController::class, 'promoteAdmin'])->middleware('ability:promoteAdmin');
+                        Route::put('/{id}', [AdminController::class, 'promoteAdmin'])->middleware('ability:promoteAdmin');
                         Route::delete('/{id}', [AdminController::class, 'demoteAdmin'])->middleware('ability:demoteAdmin');
                     }
                 );
@@ -86,8 +91,8 @@ Route::middleware('auth:sanctum')->group(
                 Route::get('/', [UserController::class, 'listActiveUsers']);
                 Route::get('/{id}', [UserController::class, 'findUser'])->middleware('ability:isOperator');
                 Route::post('/', [UserController::class, 'createUser'])->middleware('ability:createUser');
-                Route::put('/{id}', [UserController::class, 'updateUser'])->middleware('ability:deleteUser');
-                Route::delete('/{id}', [UserController::class, 'deleteUser'])->middleware('ability:updateUser');
+                Route::put('/{id}', [UserController::class, 'updateUser'])->middleware('ability:updateUser');
+                Route::delete('/{id}', [UserController::class, 'deleteUser'])->middleware('ability:deleteUser');
             }
         );
 

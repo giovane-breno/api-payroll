@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,13 +16,14 @@ return new class extends Migration
             $table->string('CEP');
             $table->string('street'); // RUA
             $table->string('district'); // BAIRRO
+            $table->string('city'); // CIDADE
             $table->string('house_number'); // Nº DA CASA
             $table->string('complement')->nullable();
             $table->string('references')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('company_addresses', function($table) {
+        Schema::table('company_addresses', function ($table) {
             $table->foreign('company_id')->references('id')->on('companies');
         });
 
@@ -34,6 +34,7 @@ return new class extends Migration
                     'CEP' => '12231-049',
                     'street' => 'Rua das Dores',
                     'district' => 'Jardim Paulista',
+                    'city' => 'São José dos Campos',
                     'house_number' => '811',
                     'complement' => 'Prédio Comercial',
                     'references' => 'Próximo ao Mercado Ipê',

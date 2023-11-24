@@ -25,7 +25,7 @@ class DeleteCompanyService
 
             return $relations;
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_DELETED.$th);
+            throw new Exception(MessageEnum::FAILURE_DELETED . $th);
         }
     }
 

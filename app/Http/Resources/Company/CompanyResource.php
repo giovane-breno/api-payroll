@@ -21,6 +21,7 @@ class CompanyResource extends JsonResource
             'CNPJ' => $this->CNPJ,
             'town_registration' => $this->town_registration,
             'state_registration' => $this->state_registration,
+            'address' => $this->Address,
             'created_at' => $this->created_at->format('d/m/y H:i'),
             'updated_at' => $this->updated_at->format('d/m/y H:i'),
         ];

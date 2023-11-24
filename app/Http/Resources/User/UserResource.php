@@ -27,18 +27,24 @@ class UserResource extends JsonResource
             'ctps' => $this->CTPS,
             'pis' => $this->PIS,
             'company' => $this->Company,
+            'phone' => $this->Phone,
             'role' => $this->Role,
             'division' => $this->Division,
+            'vacations' => $this->Vacations,
+            'benefits' => $this->Benefits,
+            'incidents' => $this->Incidents,
+            'gratifications' => $this->Gratifications,
+            'address' => $this->Address,
             'created_at' => $this->created_at->format('d/m/y H:i'),
             'updated_at' => $this->updated_at->format('d/m/y H:i'),
         ];
-        
+
         // Verifique se $this->isAdmin não é nulo e, se for verdadeiro, adicione 'isAdmin' ao array
         if ($this->isAdmin) {
             $data['isAdmin'] = $this->isAdmin->AdminRole;
         }
-        
+
         return $data;
-        
+
     }
 }

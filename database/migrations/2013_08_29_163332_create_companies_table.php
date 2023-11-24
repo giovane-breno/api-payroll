@@ -18,6 +18,8 @@ return new class extends Migration {
             $table->string("town_registration"); // inscrição municipal
             $table->string("state_registration"); // inscrição estadual
             $table->timestamps();
+            $table->softDeletes();
+
         });
 
         DB::table('companies')->insert(

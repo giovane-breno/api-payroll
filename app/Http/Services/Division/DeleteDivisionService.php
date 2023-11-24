@@ -13,14 +13,14 @@ class DeleteDivisionService
         $message = MessageEnum::SUCCESS_DELETED;
         try {
             $query = Division::findOrFail($id);
-            $relations = $this->checkRelations($query);
+            // $relations = $this->checkRelations($query);
 
-            if (!($relations)) {
+            // if (!($relations)) {
                 $query->delete();
                 return ['message' => $message];
-            }
+            // }
 
-            return $relations;
+            // return $relations;
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_DELETED);
         }

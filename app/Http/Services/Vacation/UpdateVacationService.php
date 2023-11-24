@@ -5,6 +5,7 @@ namespace App\Http\Services\Vacation;
 use App\Enums\MessageEnum;
 use App\Models\Vacation;
 use Exception;
+use Illuminate\Support\Carbon;
 
 class UpdateVacationService
 {
@@ -30,15 +31,15 @@ class UpdateVacationService
         try {
             // Vacation::fill == função utilizada para atualizar os dados
             $query = Vacation::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'user_id' => $this->user_id,
-                'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
-            ]);
+                'start_date' => Carbon::parse($this->start_date),
+                'end_date' => Carbon::parse($this->end_date),
+            ])->save();
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_UPDATED);
+            throw new Exception(MessageEnum::FAILURE_UPDATED.$th);
         }
     }
 }

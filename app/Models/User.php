@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -59,6 +60,19 @@ class User extends Authenticatable
         return $this->hasOne(CompanyAddress::class, 'company_id');
     }
 
+    public function Address()
+    {
+        return $this->hasOne(Address::class, 'user_id');
+    }
+
+    public function Phone()
+    {
+        return $this->hasOne(Phone::class, 'user_id')->select([
+            'id',
+            'phone_number'
+        ]);
+    }
+
     public function Role()
     {
         return $this->belongsTo(Role::class, 'role_id')->select([
@@ -70,8 +84,13 @@ class User extends Authenticatable
 
     public function Vacations()
     {
-        return $this->hasMany(Vacation::class, 'user_id')->where('end_date', '>', Carbon::today());
-        ;
+        return $this->hasMany(Vacation::class, 'user_id')->where('end_date', '>', Carbon::today())->select([
+            'id',
+            'bonus',
+            DB::raw("FORMAT(start_date, 'dd/MM/yyyy') as start_date"), // Format start_date in SQL Server
+            DB::raw("FORMAT(end_date, 'dd/MM/yyyy') as end_date") // Format end_date in SQL Server
+        ]);
+
     }
 
     public function Benefits()
@@ -81,13 +100,26 @@ class User extends Authenticatable
 
     public function Incidents()
     {
-        return $this->hasMany(Incident::class, 'user_id')->where('end_date', '>', Carbon::today());
+        return $this->hasMany(Incident::class, 'user_id')->where('end_date', '>', Carbon::today())->select([
+            'id',
+            'incident_reason',
+            'discounted_amount',
+            DB::raw("FORMAT(start_date, 'dd/MM/yyyy') as start_date"), // Format start_date in SQL Server
+            DB::raw("FORMAT(end_date, 'dd/MM/yyyy') as end_date") // Format end_date in SQL Server
+        ]);
     }
 
     public function Gratifications()
     {
-        return $this->hasMany(Gratification::class, 'user_id')->where('end_date', '>', Carbon::today());
+        return $this->hasMany(Gratification::class, 'user_id')->where('end_date', '>', Carbon::today())->select([
+            'id',
+            'gratification_reason',
+            'bonus',
+            DB::raw("FORMAT(start_date, 'dd/MM/yyyy') as start_date"), // Format start_date in SQL Server
+            DB::raw("FORMAT(end_date, 'dd/MM/yyyy') as end_date") // Format end_date in SQL Server
+        ]);
     }
+
 
     public function Division()
     {

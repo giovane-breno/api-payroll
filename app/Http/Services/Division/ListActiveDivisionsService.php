@@ -17,7 +17,7 @@ class ListActiveDivisionsService
             // filter() -- para pegar os filtros, como filtrar por cargo
             // orderByDesc -- para ordernar por id
             // paginate(10) -- para pegar somente 10 resultados por vez
-            $active = Division::filter()->orderByDesc('id')->paginate(10);
+            $active = Division::filter()->orderByDesc('id')->where('id','>', 2)->paginate(10);
             return new DivisionCollection($active);
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_FIND.$th);

@@ -32,9 +32,9 @@ class CreateRoleService
                 'base_salary' => $this->base_salary
             ]);
 
-            return ['id' => $query->id, 'message' => $message];
+            return ['message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED );
+            throw new Exception(MessageEnum::FAILURE_CREATED);
         }
     }
 }

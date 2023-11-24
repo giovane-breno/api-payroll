@@ -19,23 +19,22 @@ class PromoteAdminService
         $this->admin_role_id = $admin_role_id;
     }
 
-    public function promoteAdmin()
+    public function promoteAdmin($id)
     {
         // MessageEnum == MENSAGENS PREDEFINIDAS PARA EVITAR REPETIÇÃO DE CÓDIGO
         $message = MessageEnum::SUCCESS_CREATED;
 
         try {
             // Admin::create == função utilizada para salvar os dados no banco de dados.
-            Admin::updateOrCreate([
+            $query = Admin::findOrFail($id);
+            $query->fill([
                 'user_id' => $this->user_id,
-            ],
-            [
                 'admin_role_id' => $this->admin_role_id,
-            ]);
+            ])->save();
 
             return ['message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED.$th);
+            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
         }
     }
 }

@@ -27,10 +27,10 @@ class UpdateBenefitTypeService
         try {
             // User::fill == função utilizada para atualizar os dados
             $query = BenefitType::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'name' => $this->name,
-                'corporate_name' => $this->bonus,
-            ]);
+                'bonus' => $this->bonus,
+            ])->save();
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {

@@ -5,6 +5,7 @@ namespace App\Http\Services\Gratification;
 use App\Enums\MessageEnum;
 use App\Models\Gratification;
 use Exception;
+use Illuminate\Support\Carbon;
 
 class UpdateGratificationService
 {
@@ -36,17 +37,17 @@ class UpdateGratificationService
         try {
             // Gratification::fill == função utilizada para atualizar os dados
             $query = Gratification::findOrFail($id);
-            $query::fill([
+            $query->fill([
                 'user_id' => $this->user_id,
                 'gratification_reason' => $this->gratification_reason,
                 'bonus' => $this->bonus,
-                'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
-            ]);
+                'start_date' => Carbon::parse($this->start_date),
+                'end_date' => Carbon::parse($this->end_date),
+            ])->save();
 
             return ['id' => $query->id, 'message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_UPDATED);
+            throw new Exception(MessageEnum::FAILURE_UPDATED.$th);
         }
     }
 }
