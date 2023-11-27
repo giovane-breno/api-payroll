@@ -13,11 +13,13 @@ use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VacationController;
+use App\Models\Admin;
 use App\Models\AdminRole;
 use App\Models\Benefit;
 use App\Models\BenefitType;
 use App\Models\Company;
 use App\Models\Division;
+use App\Models\Payroll;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,6 +38,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/login', [AuthController::class, 'login']);
+// Route::get('finance/payment/{id}', [FinanceController::class, 'findPayroll']);
 
 Route::middleware('auth:sanctum')->get('/token', function (Request $request) {
     $response = User::with('company', 'role', 'division')->find(Auth::id());
@@ -76,6 +79,30 @@ Route::middleware('auth:sanctum')->group(
                 });
             }
         );
+
+        Route::prefix('data')->group(
+            function () {
+                Route::get('/admin', function () {
+                    $response = Admin::count();
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
+
+                Route::get('/user', function () {
+                    $response = User::count();
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
+
+                Route::get('/demonstrative', function () {
+                    $response = Payroll::count();
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
+
+                Route::get('/salary', function () {
+                    $response = Payroll::sum('net_salary');
+                    return response()->json(['status' => 'success', 'data' => $response], 200);
+                });
+            }
+        );
         Route::prefix('user')->group(
             function () {
 
@@ -83,6 +110,7 @@ Route::middleware('auth:sanctum')->group(
                     function () {
                         Route::get('/', [AdminController::class, 'ListAdmins'])->middleware('ability:isAdmin');
                         Route::get('/{id}', [AdminController::class, 'findAdmin'])->middleware('ability:isAdmin');
+                        Route::post('/', [AdminController::class, 'createAdmin'])->middleware('ability:promoteAdmin');
                         Route::put('/{id}', [AdminController::class, 'promoteAdmin'])->middleware('ability:promoteAdmin');
                         Route::delete('/{id}', [AdminController::class, 'demoteAdmin'])->middleware('ability:demoteAdmin');
                     }

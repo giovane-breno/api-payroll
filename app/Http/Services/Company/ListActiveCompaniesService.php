@@ -16,7 +16,7 @@ class ListActiveCompaniesService
             // filter() -- para pegar os filtros, como filtrar por cargo
             // orderByDesc -- para ordernar por id
             // paginate(10) -- para pegar somente 10 resultados por vez
-            $active = Company::orderByDesc('id')->paginate(10);
+            $active = Company::filter()->orderByDesc('id')->paginate(10);
             return new CompanyCollection($active);
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_FIND);

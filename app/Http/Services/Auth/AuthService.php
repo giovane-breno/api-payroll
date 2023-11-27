@@ -20,7 +20,7 @@ class AuthService
         if (Auth::attempt($credentials)) {
             $user = User::with('company', 'role', 'division')->find(Auth::id());
 
-            $user->tokens()->delete();
+            // $user->tokens()->delete();
             if ($user->isAdmin) {
 
                 $abilities = ($this)->getRoleAbilities($user->isAdmin->admin_role_id);

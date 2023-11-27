@@ -14,4 +14,13 @@ class AdminRole extends Model
         'abilities'
     ];
 
+    public function scopeFilter($query)
+    {
+        if (request('search')) {
+            $query->where('name', 'like', '%' . request('search') . '%');
+        }
+
+        return $query;
+    }
+
 }

@@ -24,4 +24,13 @@ class Company extends Model
     {
         return $this->hasOne(CompanyAddress::class, 'company_id');
     }
+
+    public function scopeFilter($query)
+    {
+        if (request('search')) {
+            $query->where('corporate_name', 'like', '%' . request('search') . '%');
+        }
+
+        return $query;
+    }
 }

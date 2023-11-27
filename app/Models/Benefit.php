@@ -38,9 +38,13 @@ class Benefit extends Model
 
     public function scopeFilter($query)
     {
-        if (request('username')) {
-            $query->where('username', 'like', '%' . request('username') . '%');
+        if (request('search')) {
+            $searchTerm = '%' . request('search') . '%';
+            $query->whereHas('User', function ($q) use ($searchTerm) {
+                $q->where('full_name', 'LIKE', $searchTerm);
+            });
         }
+    
 
         if (request('company')) {
             $query->whereHas('user', function ($q) {

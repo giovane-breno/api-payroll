@@ -17,7 +17,7 @@ class ListActiveBenefitTypesService
             // filter() -- para pegar os filtros, como filtrar por cargo
             // orderByDesc -- para ordernar por id
             // paginate(10) -- para pegar somente 10 resultados por vez
-            $active = BenefitType::orderByDesc('id')->paginate(10);
+            $active = BenefitType::filter()->orderByDesc('id')->paginate(10);
             return new BenefitTypeCollection($active);
         } catch (Exception $th) {
             throw new Exception(MessageEnum::FAILURE_FIND);

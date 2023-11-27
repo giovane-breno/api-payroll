@@ -16,8 +16,8 @@ class Division extends Model
 
     public function scopeFilter($query)
     {
-        if (request('username')) {
-            $query->where('username', 'like', '%' . request('username') . '%');
+        if (request('search')) {
+            $query->where('name', 'like', '%' . request('search') . '%');
         }
 
         if (request('company')) {

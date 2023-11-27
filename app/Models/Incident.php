@@ -28,9 +28,13 @@ class Incident extends Model
 
     public function scopeFilter($query)
     {
-        if (request('user_id')) {
-            $query->where('user_id', '=', request('user_id'));
+        if (request('search')) {
+            $searchTerm = '%' . request('search') . '%';
+            $query->whereHas('User', function ($q) use ($searchTerm) {
+                $q->where('full_name', 'LIKE', $searchTerm);
+            });
         }
+    
 
         if (request('company')) {
             $query->whereHas('user', function ($q) {

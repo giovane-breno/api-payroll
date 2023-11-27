@@ -65,8 +65,8 @@ class AdminRoleController extends Controller
     public function updateAdminRole(Request $request, int $id)
     {
         $request->validate([
-            'name' => 'string',
-            'abilities' => 'array'
+            'name' => 'required',
+            'abilities' => 'required'
         ]);
 
         try {

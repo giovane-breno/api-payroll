@@ -30,7 +30,7 @@ class UpdateAdminRoleService
             $query->fill([
                 'name' => $this->name,
                 'abilities' => $this->abilities,
-            ]);
+            ])->save();
 
             return ['message' => $message];
         } catch (Exception $th) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\Admin\CreateAdminService;
 use App\Http\Services\Admin\DemoteAdminService;
 use App\Http\Services\Admin\FindAdminService;
 use App\Http\Services\Admin\ListActiveAdminsService;
@@ -30,6 +31,29 @@ class AdminController extends Controller
             $service = new FindAdminService();
             $response = $service->findAdmin($id);
             return response()->json(['status' => 'success', 'data' => $response], 200);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Cadastra novos administradores no sistema.
+     */
+    public function createAdmin(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'numeric',
+            'admin_role_id' => 'numeric'
+        ]);
+
+        try {
+            $service = new CreateAdminService(
+                $request->user_id,
+                $request->admin_role_id,
+            );
+
+            $response = $service->createAdmin();
+            return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
