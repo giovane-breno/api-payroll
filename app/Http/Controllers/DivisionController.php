@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class DivisionController extends Controller
 {
     /**
-     * Mostra a lista de funcionários / usuarios cadastrados
+     * Lista as divisões ativas.
      */
     public function listActiveDivisions()
     {
@@ -26,7 +26,7 @@ class DivisionController extends Controller
     }
 
     /**
-     * Mostra uma Divisão em especifico.
+     * Encontra uma divisão específica com base no ID.
      */
     public function findDivision(int $id)
     {
@@ -37,25 +37,27 @@ class DivisionController extends Controller
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
-
     }
 
     /**
-     * Cadastra os novas Divisões no sistema.
+     * Cria uma nova divisão no sistema.
      */
     public function createDivision(Request $request)
     {
+        // Validação dos dados recebidos na requisição
         $request->validate([
             'name' => 'string',
             'bonus' => 'numeric'
         ]);
 
         try {
+            // Instância do serviço de criação de divisão
             $service = new CreateDivisionService(
                 $request->name,
                 $request->bonus
             );
 
+            // Chama o método para criar uma divisão
             $response = $service->createDivision();
             return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
@@ -64,21 +66,24 @@ class DivisionController extends Controller
     }
 
     /**
-     * Atualiza uma Divisão no sistema.
+     * Atualiza uma divisão no sistema.
      */
     public function updateDivision(Request $request, int $id)
     {
+        // Validação dos dados recebidos na requisição
         $request->validate([
             'name' => 'string',
             'bonus' => 'numeric'
         ]);
 
         try {
+            // Instância do serviço de atualização de divisão
             $service = new UpdateDivisionService(
                 $request->name,
                 $request->bonus
             );
 
+            // Chama o método para atualizar uma divisão
             $response = $service->updateDivision($id);
             return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
@@ -87,12 +92,15 @@ class DivisionController extends Controller
     }
 
     /**
-     * Deleta uma Divisão do sistema.
+     * Deleta uma divisão do sistema.
      */
     public function deleteDivision(int $id)
     {
         try {
+            // Instância do serviço de exclusão de divisão
             $service = new DeleteDivisionService();
+
+            // Chama o método para excluir uma divisão
             $response = $service->deleteDivision($id);
 
             return response()->json(['status' => 'success', 'message' => $response['message']], 200);
@@ -101,4 +109,3 @@ class DivisionController extends Controller
         }
     }
 }
-

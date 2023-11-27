@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class VacationController extends Controller
 {
+    // Lista todas as férias ativas
     public function listActiveVacations()
     {
         try {
@@ -22,9 +23,7 @@ class VacationController extends Controller
         }
     }
 
-    /**
-     * Mostra uma Divisão em especifico.
-     */
+    // Encontra uma férias específica pelo ID
     public function findVacation(int $id)
     {
         try {
@@ -36,9 +35,7 @@ class VacationController extends Controller
         }
     }
 
-    /**
-     * Cadastra os novas Divisões no sistema.
-     */
+    // Cria uma nova entrada de férias
     public function createVacation(Request $request)
     {
         $request->validate([
@@ -61,9 +58,7 @@ class VacationController extends Controller
         }
     }
 
-    /**
-     * Atualiza uma Divisão no sistema.
-     */
+    // Atualiza informações de férias existentes
     public function updateVacation(Request $request, int $id)
     {
         $request->validate([
@@ -86,9 +81,7 @@ class VacationController extends Controller
         }
     }
 
-    /**
-     * Deleta uma Divisão do sistema.
-     */
+    // Deleta uma entrada de férias pelo ID
     public function deleteVacation(int $id)
     {
         try {
@@ -101,4 +94,3 @@ class VacationController extends Controller
         }
     }
 }
-

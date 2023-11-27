@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class GratificationController extends Controller
 {
+    /**
+     * Lista todas as gratificações ativas.
+     */
     public function listActiveGratifications()
     {
         try {
@@ -23,7 +26,7 @@ class GratificationController extends Controller
     }
     
     /**
-     * Mostra uma Divisão em especifico.
+     * Mostra uma gratificação específica.
      */
     public function findGratification(int $id)
     {
@@ -37,10 +40,11 @@ class GratificationController extends Controller
     }
 
     /**
-     * Cadastra os novas Divisões no sistema.
+     * Cadastra novas gratificações no sistema.
      */
     public function createGratification(Request $request)
     {
+        // Validação dos dados recebidos via request
         $request->validate([
             'user_id' => 'numeric',
             'gratification_reason' => 'string',
@@ -50,6 +54,7 @@ class GratificationController extends Controller
         ]);
 
         try {
+            // Cria uma instância do serviço para criar uma nova gratificação
             $service = new CreateGratificationService(
                 $request->user_id,
                 $request->gratification_reason,
@@ -58,6 +63,7 @@ class GratificationController extends Controller
                 $request->end_date
             );
 
+            // Chama o serviço para criar a gratificação
             $response = $service->createGratification();
             return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
@@ -66,10 +72,11 @@ class GratificationController extends Controller
     }
 
     /**
-     * Atualiza uma Divisão no sistema.
+     * Atualiza uma gratificação no sistema.
      */
     public function updateGratification(Request $request, int $id)
     {
+        // Validação dos dados recebidos via request
         $request->validate([
             'user_id' => 'numeric',
             'gratification_reason' => 'string',
@@ -79,6 +86,7 @@ class GratificationController extends Controller
         ]);
 
         try {
+            // Cria uma instância do serviço para atualizar uma gratificação
             $service = new UpdateGratificationService(
                 $request->user_id,
                 $request->gratification_reason,
@@ -87,6 +95,7 @@ class GratificationController extends Controller
                 $request->end_date
             );
 
+            // Chama o serviço para atualizar a gratificação
             $response = $service->updateGratification($id);
             return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
@@ -95,18 +104,19 @@ class GratificationController extends Controller
     }
 
     /**
-     * Deleta uma Divisão do sistema.
+     * Deleta uma gratificação do sistema.
      */
     public function deleteGratification(int $id)
     {
         try {
+            // Cria uma instância do serviço para deletar uma gratificação
             $service = new DeleteGratificationService();
             $response = $service->deleteGratification($id);
 
+            // Chama o serviço para deletar a gratificação
             return response()->json(['status' => 'success', 'message' => $response['message']], 200);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
     }
 }
-

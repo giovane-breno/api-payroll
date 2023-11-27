@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class FinanceController extends Controller
 {
+    /**
+     * Lista todos os pagamentos ativos.
+     */
     public function ListActivePayrolls()
     {
         try {
@@ -22,10 +25,13 @@ class FinanceController extends Controller
         }
     }
 
+    /**
+     * Realiza o pagamento de todos os funcionários.
+     */
     public function doPayment()
     {
         try {
-            $service = new doPaymentService();
+            $service = new DoPaymentService();
             $response = $service->doPayment();
 
             return response()->json(['status' => 'success', 'message' => $response['message'], 'data' => $response['data']], 200);
@@ -34,10 +40,13 @@ class FinanceController extends Controller
         }
     }
 
+    /**
+     * Realiza o pagamento individual de um funcionário.
+     */
     public function doIndividualPayment(int $id)
     {
         try {
-            $service = new doPaymentService();
+            $service = new DoPaymentService();
             $response = $service->doIndividualPayment($id);
 
             return response()->json(['status' => 'success', 'message' => $response['message']], 200);
@@ -46,6 +55,9 @@ class FinanceController extends Controller
         }
     }
 
+    /**
+     * Encontra um pagamento específico.
+     */
     public function findPayroll(int $id)
     {
         try {
@@ -58,6 +70,9 @@ class FinanceController extends Controller
         }
     }
 
+    /**
+     * Deleta um pagamento específico.
+     */
     public function deletePayroll(int $id)
     {
         try {

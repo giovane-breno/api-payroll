@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class IncidentController extends Controller
 {
+    /**
+     * Lista os incidentes ativos.
+     */
     public function listActiveIncidents()
     {
         try {
@@ -23,7 +26,7 @@ class IncidentController extends Controller
     }
 
     /**
-     * Mostra uma Divisão em especifico.
+     * Encontra um incidente específico com base no ID.
      */
     public function findIncident(int $id)
     {
@@ -37,39 +40,11 @@ class IncidentController extends Controller
     }
 
     /**
-     * Cadastra os novas Divisões no sistema.
+     * Cria um novo incidente no sistema.
      */
     public function createIncident(Request $request)
     {
-        $request->validate([
-            'user_id' => 'numeric',
-            'incident_reason' => 'string',
-            'bonus' => 'numeric',
-            'start_date' => 'date',
-            'end_date' => 'date'
-        ]);
-
-        try {
-            $service = new CreateIncidentService(
-                $request->user_id,
-                $request->incident_reason,
-                $request->discounted_amount,
-                $request->start_date,
-                $request->end_date
-            );
-
-            $response = $service->createIncident();
-            return response()->json(['status' => 'success', 'message' => $response['message']], 201);
-        } catch (\Exception $exception) {
-            return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
-        }
-    }
-
-    /**
-     * Atualiza uma Divisão no sistema.
-     */
-    public function updateIncident(Request $request, int $id)
-    {
+        // Validação dos dados recebidos na requisição
         $request->validate([
             'user_id' => 'numeric',
             'incident_reason' => 'string',
@@ -79,6 +54,39 @@ class IncidentController extends Controller
         ]);
 
         try {
+            // Instância do serviço de criação de incidente
+            $service = new CreateIncidentService(
+                $request->user_id,
+                $request->incident_reason,
+                $request->discounted_amount,
+                $request->start_date,
+                $request->end_date
+            );
+
+            // Chama o método para criar um incidente
+            $response = $service->createIncident();
+            return response()->json(['status' => 'success', 'message' => $response['message']], 201);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Atualiza um incidente no sistema.
+     */
+    public function updateIncident(Request $request, int $id)
+    {
+        // Validação dos dados recebidos na requisição
+        $request->validate([
+            'user_id' => 'numeric',
+            'incident_reason' => 'string',
+            'discounted_amount' => 'numeric',
+            'start_date' => 'date',
+            'end_date' => 'date'
+        ]);
+
+        try {
+            // Instância do serviço de atualização de incidente
             $service = new UpdateIncidentService(
                 $request->user_id,
                 $request->incident_reason,
@@ -87,6 +95,7 @@ class IncidentController extends Controller
                 $request->end_date
             );
 
+            // Chama o método para atualizar um incidente
             $response = $service->updateIncident($id);
             return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
@@ -95,12 +104,15 @@ class IncidentController extends Controller
     }
 
     /**
-     * Deleta uma Divisão do sistema.
+     * Deleta um incidente do sistema.
      */
     public function deleteIncident(int $id)
     {
         try {
+            // Instância do serviço de exclusão de incidente
             $service = new DeleteIncidentService();
+
+            // Chama o método para excluir um incidente
             $response = $service->deleteIncident($id);
 
             return response()->json(['status' => 'success', 'message' => $response['message']], 200);
@@ -109,4 +121,3 @@ class IncidentController extends Controller
         }
     }
 }
-

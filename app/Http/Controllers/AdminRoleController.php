@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class AdminRoleController extends Controller
 {
+    // Retorna uma lista das funções administrativas ativas
     public function ListActiveAdminRole()
     {
         try {
@@ -18,12 +19,13 @@ class AdminRoleController extends Controller
             $response = $service->listAdminRoles();
             return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
+            // Em caso de erro, retorna uma resposta de erro
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
     }
 
     /**
-     * Mostra uma Divisão em especifico.
+     * Encontra e retorna os detalhes de uma função administrativa específica com base no ID.
      */
     public function findAdminRole(int $id)
     {
@@ -32,15 +34,17 @@ class AdminRoleController extends Controller
             $response = $service->findAdminRole($id);
             return response()->json(['status' => 'success', 'data' => $response], 200);
         } catch (\Exception $exception) {
+            // Em caso de erro, retorna uma resposta de erro
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
     }
 
     /**
-     * Cadastra os novas Divisões no sistema.
+     * Cria uma nova função administrativa no sistema.
      */
     public function createAdminRole(Request $request)
     {
+        // Valida os dados recebidos na requisição
         $request->validate([
             'name' => 'string',
             'abilities' => 'required'
@@ -55,15 +59,17 @@ class AdminRoleController extends Controller
             $response = $service->createAdminRole();
             return response()->json(['status' => 'success', 'message' => $response['message']], 201);
         } catch (\Exception $exception) {
+            // Em caso de erro, retorna uma resposta de erro
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
     }
 
     /**
-     * Atualiza uma Divisão no sistema.
+     * Atualiza os detalhes de uma função administrativa existente com base no ID.
      */
     public function updateAdminRole(Request $request, int $id)
     {
+        // Valida os dados recebidos na requisição
         $request->validate([
             'name' => 'required',
             'abilities' => 'required'
@@ -78,12 +84,13 @@ class AdminRoleController extends Controller
             $response = $service->updateAdminRole($id);
             return response()->json(['status' => 'success', 'message' => $response['message']], 200);
         } catch (\Exception $exception) {
+            // Em caso de erro, retorna uma resposta de erro
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
     }
 
     /**
-     * Deleta uma Divisão do sistema.
+     * Remove uma função administrativa com base no ID.
      */
     public function deleteAdminRole(int $id)
     {
@@ -93,9 +100,8 @@ class AdminRoleController extends Controller
 
             return response()->json(['status' => 'success', 'message' => $response['message']], 200);
         } catch (\Exception $exception) {
+            // Em caso de erro, retorna uma resposta de erro
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 500);
         }
     }
 }
-
-
