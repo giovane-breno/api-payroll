@@ -65,7 +65,7 @@ class CreateCompanyService
 
             return ['message' => $message];
         } catch (Exception $th) {
-            throw new Exception(MessageEnum::FAILURE_CREATED . $th);
+            throw new Exception(MessageEnum::FAILURE_CREATED);
         }
     }
 

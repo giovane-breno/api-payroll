@@ -98,7 +98,7 @@ class UpdateUserService
     private function saveAddress($id, $address)
     {
         try {
-            $query = Address::WhereUserId($id)->first();
+            $query = Address::whereUserId($id)->first();
             $query = $query->fill([
                 'CEP' => $address['cep'],
                 'street' => $address['street'],
@@ -122,9 +122,9 @@ class UpdateUserService
     private function savePhone($id, $phones)
     {
         try {
-            $query = Phone::WhereUserId($id)->first();
+            $query = Phone::whereUserId($id)->first();
             $query = $query->fill([
-                'phone_number' => $phones['phone_number']
+                'phone_number' => $phones['phones_number']
             ])->save();
 
             if ($query)
