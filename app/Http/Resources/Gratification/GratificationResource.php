@@ -19,7 +19,7 @@ class GratificationResource extends JsonResource
             'id' => $this->id,
             'user' => $this->User,
             'gratification_reason' => $this->gratification_reason,
-            'bonus' => number_format($this->bonus, 2, '.', 0),
+            'bonus' => number_format($this->bonus, 2, '.', ''),
             'start_date' => Carbon::parse($this->start_date)->format('d/m/Y'),
             'end_date' => Carbon::parse($this->end_date)->format('d/m/Y'),
             'created_at' => $this->created_at->format('d/m/y H:i'),

@@ -38,7 +38,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/login', [AuthController::class, 'login']);
-// Route::get('finance/payment/{id}', [FinanceController::class, 'findPayroll']);
 
 Route::middleware('auth:sanctum')->get('/token', function (Request $request) {
     $response = User::with('company', 'role', 'division')->find(Auth::id());

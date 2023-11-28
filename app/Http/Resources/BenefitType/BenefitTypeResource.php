@@ -17,7 +17,7 @@ class BenefitTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'bonus' => number_format($this->bonus, 2),
+            'bonus' => number_format($this->bonus,2, '.', ''),
             'created_at' => $this->created_at->format('d/m/y H:i'),
             'updated_at' => $this->updated_at->format('d/m/y H:i'),
         ];
