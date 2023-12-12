@@ -1,66 +1,348 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# ALPHA SYSTEM - API
 
-## About Laravel
+### 🛠️ SOBRE O PROJETO
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Desenvolvimento de um sistema para automatização total da folha 
+de pagamento de uma empresa.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### 🏝️ STACKS UTILIZADAS
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Laravel / SQL SERVER
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Padrão MVC
+### 💠 INSTALAÇÃO 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Passo a passo para instalar o projeto e executar.
 
-## Laravel Sponsors
+```bash
+git clone https://github.com/giovane-breno/api-payroll/
+```
+```bash
+composer install
+```
+```bash
+php artisan serve
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    
+## Arquivos Importantes
+```
+app/
+┣ Http/
+┃ ┣ Controllers/ - ONDE FICA TODA A LÓGICA DO SISTEMA
+┃ ┃ ┣ AdminController.php
+┃ ┃ ┣ AdminRoleController.php
+┃ ┃ ┣ AuthController.php
+┃ ┃ ┣ BenefitController.php
+┃ ┃ ┣ BenefitTypeController.php
+┃ ┃ ┣ CompanyController.php
+┃ ┃ ┣ Controller.php
+┃ ┃ ┣ DivisionController.php
+┃ ┃ ┣ FinanceController.php
+┃ ┃ ┣ GratificationController.php
+┃ ┃ ┣ IncidentController.php
+┃ ┃ ┣ LogController.php
+┃ ┃ ┣ RoleController.php
+┃ ┃ ┣ UserController.php
+┃ ┃ ┗ VacationController.php
 
-### Premium Partners
+┃ ┣ Resources/ - DTO (DATA TRANSFER OBJECT - FORMATAR A RESPOSTA JSON)
+┃ ┃ ┣ Admin/
+┃ ┃ ┃ ┣ AdminCollection.php
+┃ ┃ ┃ ┗ AdminResource.php
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+┃ ┃ ┣ AdminRole/
+┃ ┃ ┃ ┣ AdminRoleCollection.php
+┃ ┃ ┃ ┗ AdminRoleResource.php
 
-## Contributing
+┃ ┃ ┣ Benefit/
+┃ ┃ ┃ ┣ BenefitCollection.php
+┃ ┃ ┃ ┗ BenefitResource.php
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+┃ ┃ ┣ BenefitType/
+┃ ┃ ┃ ┣ BenefitTypeCollection.php
+┃ ┃ ┃ ┗ BenefitTypeResource.php
 
-## Code of Conduct
+┃ ┃ ┣ Company/
+┃ ┃ ┃ ┣ CompanyCollection.php
+┃ ┃ ┃ ┗ CompanyResource.php
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+┃ ┃ ┣ Division/
+┃ ┃ ┃ ┣ DivisionCollection.php
+┃ ┃ ┃ ┗ DivisionResource.php
 
-## Security Vulnerabilities
+┃ ┃ ┣ Gratification/
+┃ ┃ ┃ ┣ GratificationCollection.php
+┃ ┃ ┃ ┗ GratificationResource.php
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+┃ ┃ ┣ Incident/
+┃ ┃ ┃ ┣ IncidentCollection.php
+┃ ┃ ┃ ┗ IncidentResource.php
 
-## License
+┃ ┃ ┣ Payroll/
+┃ ┃ ┃ ┣ PayrollCollection.php
+┃ ┃ ┃ ┗ PayrollResource.php
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+┃ ┃ ┣ Role/
+┃ ┃ ┃ ┣ RoleCollection.php
+┃ ┃ ┃ ┗ RoleResource.php
+
+┃ ┃ ┣ User/
+┃ ┃ ┃ ┣ UserCollection.php
+┃ ┃ ┃ ┗ UserResource.php
+
+┃ ┃ ┣ Vacation/
+┃ ┃ ┃ ┣ VacationCollection.php
+┃ ┃ ┃ ┗ VacationResource.php
+┃ ┃ ┗ PaginationResource.php
+
+┃ ┣ Services/ - PARA DEIXAR O CODIGO LEGIVEL FOI SEPARADO EM PEQUENOS SERVIÇOS
+┃ ┃ ┣ Admin/
+┃ ┃ ┃ ┣ CreateAdminService.php
+┃ ┃ ┃ ┣ DemoteAdminService.php
+┃ ┃ ┃ ┣ FindAdminService.php
+┃ ┃ ┃ ┣ ListActiveAdminsService.php
+┃ ┃ ┃ ┗ PromoteAdminService.php
+
+┃ ┃ ┣ AdminRole/
+┃ ┃ ┃ ┣ CreateAdminRoleService.php
+┃ ┃ ┃ ┣ DeleteAdminRoleService.php
+┃ ┃ ┃ ┣ FindAdminRoleService.php
+┃ ┃ ┃ ┣ ListActiveAdminRolesService.php
+┃ ┃ ┃ ┗ UpdateAdminRoleService.php
+
+┃ ┃ ┣ Auth/
+┃ ┃ ┃ ┗ AuthService.php
+
+┃ ┃ ┣ Benefit/
+┃ ┃ ┃ ┣ CreateBenefitService.php
+┃ ┃ ┃ ┣ DeleteBenefitService.php
+┃ ┃ ┃ ┣ FindBenefitService.php
+┃ ┃ ┃ ┣ ListActiveBenefitsService.php
+┃ ┃ ┃ ┗ UpdateBenefitService.php
+
+┃ ┃ ┣ BenefitType/
+┃ ┃ ┃ ┣ CreateBenefitTypeService.php
+┃ ┃ ┃ ┣ DeleteBenefitTypeService.php
+┃ ┃ ┃ ┣ FindBenefitTypeService.php
+┃ ┃ ┃ ┣ ListActiveBenefitTypesService.php
+┃ ┃ ┃ ┗ UpdateBenefitTypeService.php
+
+┃ ┃ ┣ Company/
+┃ ┃ ┃ ┣ CreateCompanyService.php
+┃ ┃ ┃ ┣ DeleteCompanyService.php
+┃ ┃ ┃ ┣ FindCompanyService.php
+┃ ┃ ┃ ┣ ListActiveCompaniesService.php
+┃ ┃ ┃ ┗ UpdateCompanyService.php
+
+┃ ┃ ┣ Division/
+┃ ┃ ┃ ┣ CreateDivisionService.php
+┃ ┃ ┃ ┣ DeleteDivisionService.php
+┃ ┃ ┃ ┣ FindDivisionService.php
+┃ ┃ ┃ ┣ ListActiveDivisionsService.php
+┃ ┃ ┃ ┗ UpdateDivisionService.php
+
+┃ ┃ ┣ Finance/
+┃ ┃ ┃ ┣ DeletePayrollService.php
+┃ ┃ ┃ ┣ doPaymentService.php
+┃ ┃ ┃ ┣ FindPayrollService.php
+┃ ┃ ┃ ┗ ListActivePayrollsService.php
+
+┃ ┃ ┣ Gratification/
+┃ ┃ ┃ ┣ CreateGratificationService.php
+┃ ┃ ┃ ┣ DeleteGratificationService.php
+┃ ┃ ┃ ┣ FindGratificationService.php
+┃ ┃ ┃ ┣ ListActiveGratificationsService.php
+┃ ┃ ┃ ┗ UpdateGratificationService.php
+
+┃ ┃ ┣ Incident/
+┃ ┃ ┃ ┣ CreateIncidentService.php
+┃ ┃ ┃ ┣ DeleteIncidentService.php
+┃ ┃ ┃ ┣ FindIncidentService.php
+┃ ┃ ┃ ┣ ListActiveIncidentsService.php
+┃ ┃ ┃ ┗ UpdateIncidentService.php
+
+┃ ┃ ┣ Role/
+┃ ┃ ┃ ┣ CreateRoleService.php
+┃ ┃ ┃ ┣ DeleteRoleService.php
+┃ ┃ ┃ ┣ FindRoleService.php
+┃ ┃ ┃ ┣ ListActiveRolesService.php
+┃ ┃ ┃ ┗ UpdateRoleService.php
+
+┃ ┃ ┣ User/
+┃ ┃ ┃ ┣ CreateUserService.php
+┃ ┃ ┃ ┣ DeleteUserService.php
+┃ ┃ ┃ ┣ FindUserService.php
+┃ ┃ ┃ ┣ ListActiveUsersService.php
+┃ ┃ ┃ ┗ UpdateUserService.php
+
+┃ ┃ ┗ Vacation/
+┃ ┃   ┣ CreateVacationService.php
+┃ ┃   ┣ DeleteVacationService.php
+┃ ┃   ┣ FindVacationService.php
+┃ ┃   ┣ ListActiveVacationsService.php
+┃ ┃   ┗ UpdateVacationService.php
+┃ ┗ Kernel.php
+
+┣ Models/ - MODELS ONDE PEGA AS TABELAS DO BANCO DE DADOS
+┃ ┣ Address.php
+┃ ┣ Admin.php
+┃ ┣ AdminRole.php
+┃ ┣ Benefit.php
+┃ ┣ BenefitType.php
+┃ ┣ Company.php
+┃ ┣ CompanyAddress.php
+┃ ┣ Division.php
+┃ ┣ Gratification.php
+┃ ┣ Incident.php
+┃ ┣ Log.php
+┃ ┣ Payroll.php
+┃ ┣ Phone.php
+┃ ┣ Role.php
+┃ ┣ User.php
+┗ ┗ Vacation.php
+```
+## 🔰Demonstração
+
+Detalhes das rotas do projeto.
+
+## Autenticação e Acesso
+
+| ROTA  | Controller |
+| ------------- | ------------- |
+| POST /login  | - AuthController@login  |
+ 
+
+### Rotas Protegidas (Requer autenticação)
+
+| ROTA  | Descrição |
+| ------------- | ------------- |
+| GET /token  | Retorna detalhes do usuário autenticado  |
+GET /l/companies | Lista de empresas
+GET /l/workers | Lista de trabalhadores
+GET /l/divisions | Lista de divisões
+GET /l/roles | Lista de funções
+GET /l/roles/a | Lista de funções de administrador
+GET /l/benefits | Lista de benefícios
+
+### Estatísticas e Dados
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /data/admin | Total de administradores
+GET /data/user | Total de usuários
+GET /data/demonstrative | Demonstrativo
+GET /data/salary | Soma dos salários líquidos
+
+### Gerenciamento de Usuários
+
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /user/a | Lista de administradores
+GET /user/a/{id} | Detalhes do administrador por ID
+POST /user/a | Criação de administrador
+PUT /user/a/{id} | Promoção de administrador
+DELETE /user/a/{id} | Remoção de privilégios de administrador
+GET /user | Lista de usuários ativos
+GET /user/{id} | Detalhes do usuário por ID
+POST /user | Criação de usuário
+PUT /user/{id} | Atualização de usuário
+DELETE /user/{id} | Remoção de usuário
+
+### Gerenciamento de Divisões
+
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /division | Lista de divisões ativas
+GET /division/{id} | Detalhes da divisão por ID
+POST /division | Criação de divisão
+PUT /division/{id} | Atualização de divisão
+DELETE /division/{id} | Remoção de divisão
+
+### Gerenciamento de Funções
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /role | Lista de funções ativas
+GET /role/{id} | Detalhes da função por ID
+POST /role | Criação de função
+PUT /role/{id} | Atualização de função
+DELETE /role/{id} | Remoção de função
+
+### Gerenciamento de Funções de Administrador
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /admin_role | Lista de funções de administrador ativas
+GET /admin_role/{id} | Detalhes da função de administrador por ID
+POST /admin_role | Criação de função de administrador
+PUT /admin_role/{id} | Atualização de função de administrador
+DELETE /admin_role/{id} | Remoção de função de administrador
+
+### Gerenciamento de Empresas
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /company | Lista de empresas ativas
+GET /company/{id} | Detalhes da empresa por ID
+POST /company | Criação de empresa
+PUT /company/{id} | Atualização de empresa
+DELETE /company/{id} | Remoção de empresa
+
+### Gerenciamento Financeiro
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /finance/payment | Lista de pagamentos
+GET /finance/payment/p | Realiza pagamento
+GET /finance/payment/p/{id} | Pagamento individual
+GET /finance/payment/{id} | Detalhes do pagamento por ID
+DELETE /finance/payment/{id} | Remoção de pagamento
+
+### Gerenciamento de Férias
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /vacation | Lista de férias ativas
+GET /vacation/{id} | Detalhes da férias por ID
+POST /vacation | Criação de férias
+PUT /vacation/{id} | Atualização de férias
+DELETE /vacation/{id} | Remoção de férias
+
+### Gerenciamento de Gratificações
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /gratification | Lista de gratificações ativas
+GET /gratification/{id} | Detalhes da gratificação por ID
+POST /gratification | Criação de gratificação
+PUT /gratification/{id} | Atualização de gratificação
+DELETE /gratification/{id} | Remoção de gratificação
+
+### Gerenciamento de Incidentes
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /incident | Lista de incidentes ativos
+GET /incident/{id} | Detalhes do incidente por ID
+POST /incident | Criação de incidente
+PUT /incident/{id} | Atualização de incidente
+DELETE /incident/{id} | Remoção de incidente
+
+### Gerenciamento de Benefícios
+| ROTA  | Descrição |
+| ------------- | ------------- |
+GET /benefit/t | Lista de tipos de benefícios
+GET /benefit/t/{id} | Detalhes do tipo de benefício por ID
+POST /benefit/t | Criação de tipo de benefício
+PUT /benefit/t/{id} | Atualização de tipo de benefício
+DELETE /benefit/t/{id} | Remoção de tipo de benefício
+GET /benefit | Lista de benefícios
+GET /benefit/{id} | Detalhes do benefício por ID
+POST /benefit | Criação de benefício
+PUT /benefit/{id} | Atualização de benefício
+DELETE /benefit/{id} | Remoção de benefício 
+
+## Funcionalidades
+
+- Criação de Usuários
+- Autenticação por Bearer Token
+- Gerar Demonstrativos
+- Consultar Demonstrativos
+
+
